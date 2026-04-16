@@ -21,6 +21,6 @@
   </ul>
   <div class="nav-actions">
     <button class="nav-icon-btn" id="Account"></button>
-    <button class="nav-icon-btn" id="Logout"></button>
+    <button class="nav-icon-btn" id="Logout" onClick="window.location.href='login.php'"></button>
   </div>
 </nav>

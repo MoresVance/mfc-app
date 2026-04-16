@@ -66,7 +66,7 @@
     <h2>Popular Rental Packages</h2>
     <div class="packages-grid">
       <div class="pkg-card">
-        <div class="pkg-img pkg-img-balloons">🎂</div>
+        <div class="pkg-img">🎂</div>
         <div class="pkg-body">
           <h3>Popular Package 1</h3>
           <div class="pkg-price">Starting at ₱1,500</div>
@@ -75,7 +75,7 @@
         </div>
       </div>
       <div class="pkg-card">
-        <div class="pkg-img pkg-img-dessert">🎂</div>
+        <div class="pkg-img">🎂</div>
         <div class="pkg-body">
           <h3>Popular Package 2</h3>
           <div class="pkg-price">Starting at ₱3,500</div>
@@ -84,7 +84,7 @@
         </div>
       </div>
       <div class="pkg-card">
-        <div class="pkg-img pkg-img-full">🎂</div>
+        <div class="pkg-img">🎂</div>
         <div class="pkg-body">
           <h3>Popular Package 3</h3>
           <div class="pkg-price">Starting at ₱8,000</div>
