@@ -15,13 +15,13 @@
       </div>
       <div class="footer-col">
         <h4>Contact Us</h4>
-        <p>📞 +63 912 345 6789</p>
+        <p>📞 0920 968 7403</p>
         <p>✉️ hello@mfcballoons.com</p>
-        <p>📍 Tacloban City</p>
+        <p>📍 Tacloban City, Leyte, Philippines</p>
       </div>
       <div class="footer-col">
         <h4>Follow Us</h4>
-        <button class="btn-fb">Visit our Facebook</button>
+        <button onclick="window.open('https://web.facebook.com/profile.php?id=100057537996091')" class="btn-fb">Visit our Facebook</button>
       </div>
     </div>
     <div class="footer-bottom">© 2026 MFC Balloons &amp; Party Needs. All rights reserved.</div>

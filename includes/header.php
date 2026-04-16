@@ -10,8 +10,8 @@
 
 <nav class="nav" id="mainNav">
   <div class="nav-brand">
-    <span class="dot"></span>
-    <span>MFC</span>
+    <span class="logo"></span>
+    <span>MFC Balloons & Party Needs</span>
   </div>
   <ul class="nav-links">
     <li><a href="index.php" id="nav-home" class="active">Home</a></li>
@@ -20,7 +20,7 @@
     <li><a href="#" id="nav-availability">Availability</a></li>
   </ul>
   <div class="nav-actions">
-    <button class="nav-icon-btn" title="Account">👤</button>
-    <button class="nav-icon-btn" title="Logout">↗</button>
+    <button class="nav-icon-btn" id="Account"></button>
+    <button class="nav-icon-btn" id="Logout"></button>
   </div>
 </nav>

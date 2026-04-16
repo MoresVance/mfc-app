@@ -19,19 +19,25 @@
   color: var(--white); 
   font-weight: 700;
   font-size: 16px;
-  letter-spacing: 0.03em;
 }
 
-.nav-brand .dot {
-  width: 10px; height: 10px;
-  background: var(--white);
-  border-radius: 50%;
+.nav-brand .logo {
+    background-image: url('../images/brand-logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 82px;
+    height: 36px;
 }
 
 .nav-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   gap: 28px;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-links a {
@@ -56,16 +62,31 @@
 }
 
 .nav-icon-btn {
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255,255,255,0.18);
-  color: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  cursor: pointer;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.nav-actions #Account {
+    background-image: url('../icons/account-svgrepo-com.svg');
+    background-size: 18px;
+    background-repeat: no-repeat;
+    filter: brightness(0) invert(1);
+    background-position: center;
+}
+
+.nav-actions #Logout {
+    background-image: url('../icons/login-svgrepo-com.svg');
+    background-repeat: no-repeat;
+    background-size: 18px;
+    filter: brightness(0) invert(1);
+    background-position: center;
 }
 
 .nav-icon-btn:hover { 

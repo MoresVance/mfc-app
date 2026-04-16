@@ -5,7 +5,6 @@
   <link rel="stylesheet" href="assets/css/global.css">
 
   <section class="hero">
-    <div class="hero-bg"></div>
     <div class="hero-content">
       <p class="hero-eyebrow">Party Supply &amp; Rentals</p>
       <h1 class="hero-title">MFC Balloons &amp; Party Needs</h1>
