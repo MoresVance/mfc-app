@@ -1,0 +1,26 @@
+/* GLOBAL STYLES & VARIABLES */
+:root {
+  --red:       #c0392b;
+  --red-dark:  #962d23;
+  --red-light: #fdf0ef;
+  --orange:    #e67e22;
+  --gold:      #f39c12;
+  --text:      #1a1a1a;
+  --muted:     #666;
+  --border:    #e8e0df;
+  --white:     #ffffff;
+  --bg:        #faf8f7;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}

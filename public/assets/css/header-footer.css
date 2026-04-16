@@ -1,0 +1,176 @@
+/* HEADER */
+.nav {
+  background: var(--red);
+  padding: 0 32px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--white); 
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.nav-brand .logo {
+    background-image: url('../images/brand-logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 82px;
+    height: 36px;
+}
+
+
+.nav-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: var(--red-light); 
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+  padding-bottom: 2px;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--white);
+  border-bottom: 2px solid var(--white);
+}
+
+.nav-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.nav-icon-btn {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.nav-actions #Account {
+    background-image: url('../icons/account-svgrepo-com.svg');
+    background-size: 18px;
+    background-repeat: no-repeat;
+    filter: brightness(0) invert(1);
+    background-position: center;
+}
+
+.nav-actions #Logout {
+    background-image: url('../icons/login-svgrepo-com.svg');
+    background-repeat: no-repeat;
+    background-size: 18px;
+    filter: brightness(0) invert(1);
+    background-position: center;
+}
+
+.nav-icon-btn:hover { 
+  background: rgba(255,255,255,0.32); 
+}
+
+/* FOOTER */
+footer {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  padding: 40px 48px 24px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 28px;
+}
+
+.footer-brand h3 {
+  color: var(--red); 
+  font-size: 16px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-brand p { 
+  color: var(--muted); 
+  font-size: 13px; 
+}
+
+.footer-col h4 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+  color: var(--text);
+}
+
+.footer-col p,
+.footer-col a {
+  font-size: 13px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 7px;
+  text-decoration: none;
+}
+
+.btn-fb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #1877f2; 
+  color: var(--white);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-fb:hover {
+  opacity: 0.9;
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+@media (max-width: 1120px) {
+  .nav-brand-text {
+    display: none;
+  }
+}

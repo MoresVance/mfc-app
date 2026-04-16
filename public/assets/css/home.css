@@ -1,0 +1,221 @@
+.hero {
+    position: relative;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('../images/hero-bg.jpg') center/cover no-repeat;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 20px;
+}
+
+.hero-eyebrow {
+    color: var(--gold); 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+}
+
+.hero-sub {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: var(--white);
+}
+
+.value-section {
+    padding: 80px 10%;
+    text-align: center;
+    background-color: var(--white);
+    border-bottom: 1px solid var(--border);
+}
+
+.value-section h2 {
+    font-size: 2.5rem;
+    color: var(--text);
+    margin-bottom: 20px;
+    font-weight: 800;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.value-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 80%;
+    height: 3px;
+    background: var(--red);
+    border-radius: 2px;
+}
+
+.value-section p {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 700px;
+    margin: 0 auto 32px;
+    line-height: 1.8;
+}
+
+.value-cta {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--red);
+    color: var(--red);
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.value-section .btn-outline:hover {
+    background: var(--red-light);
+    color: var(--red-dark);
+}
+
+.btn {
+    padding: 12px 28px;
+    border-radius: 6px; 
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s, opacity 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:active { transform: scale(0.95); }
+
+.btn-primary {
+    background-color: var(--red);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: var(--red-dark);
+}
+
+.btn-outline-white {
+    background: transparent;
+    border: 2px solid var(--white);
+    color: var(--white);
+    margin-left: 10px;
+}
+
+.btn-outline-white:hover {
+    background: var(--white);
+    color: var(--red);
+}
+
+.btn-block { width: 100%; margin-top: 15px; }
+
+.categories {
+    padding: 40px 5%;
+    background: var(--bg); 
+}
+
+.cat-inner {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.cat-item {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.cat-item:hover { transform: translateY(-5px); }
+
+.cat-icon {
+    font-size: 2.5rem;
+    background: var(--red-light); 
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+}
+
+.cat-label { 
+    font-weight: 600; 
+    font-size: 0.9rem; 
+    color: var(--text);
+}
+
+.packages-section {
+    padding: 60px 5%;
+    text-align: center;
+    background: var(--white);
+}
+
+.packages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.pkg-card {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: 0.3s;
+}
+
+.pkg-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.pkg-img {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    background: var(--bg);
+}
+
+.pkg-body { padding: 25px; text-align: left; }
+
+.pkg-price {
+    color: var(--red); 
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin: 10px 0;
+}
+
+.pkg-body p {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
