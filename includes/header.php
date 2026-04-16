@@ -20,13 +20,13 @@
     <span class="nav-brand-text">MFC Balloons & Party Needs</span>
   </div>
   <ul class="nav-links">
-    <li><a href="index.php" id="nav-home" class="active">Home</a></li>
+    <li><a href="/index.php" id="nav-home" class="active">Home</a></li>
     <li><a href="#" id="nav-browse">Browse Services</a></li>
     <li><a href="#" id="nav-bookings">My Bookings</a></li>
-    <li><a href="#" id="nav-availability">Availability</a></li>
+    <li><a href="/user/availability.php" id="nav-availability">Availability</a></li>
   </ul>
   <div class="nav-actions">
     <button class="nav-icon-btn" id="Account"></button>
-    <button class="nav-icon-btn" id="Logout" onClick="window.location.href='login.php'"></button>
+    <button class="nav-icon-btn" id="Logout" onClick="window.location.href='/login.php'"></button>
   </div>
 </nav>

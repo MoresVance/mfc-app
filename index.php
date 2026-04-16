@@ -1,9 +1,9 @@
 <?php include 'includes/header.php'; ?>
 
 <main class="page active" id="page-home">
-  <link rel="stylesheet" href="assets/css/home.css">
-  <link rel="stylesheet" href="assets/css/global.css">
-  <link rel="icon" href="assets/images/brand-logo.png" type="image/png">
+  <link rel="stylesheet" href="/assets/css/home.css">
+  <link rel="stylesheet" href="/assets/css/global.css">
+  <link rel="icon" href="/assets/images/brand-logo.png" type="image/png">
 
   <section class="hero">
     <div class="hero-content">

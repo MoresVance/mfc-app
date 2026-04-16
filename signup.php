@@ -7,11 +7,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MFC Sign Up</title>
-    <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link rel="stylesheet" href="/assets/css/login.css">
 </head>
 <body>
-    <a href="index.php" class="back-btn" aria-label="Go back to home">
+    <a href="/index.php" class="back-btn" aria-label="Go back to home">
         <span aria-hidden="true">&#8592;</span>
     </a>
 
@@ -88,7 +88,7 @@
             </div>
 
             <div class="signup-link">
-                <p>Already have an account? <a href="login.php">Sign in</a></p>
+                <p>Already have an account? <a href="/login.php">Sign in</a></p>
             </div>
 
             <div class="success-message" id="successMessage">

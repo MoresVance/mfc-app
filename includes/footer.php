@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>MFC-Connect | Balloons & Party Needs</title>
-    <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/header-footer.css">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link rel="stylesheet" href="/assets/css/header-footer.css">
 </head>
 <body>
   <footer>
     <div class="footer-grid">
       <div class="footer-brand">
-        <h3>🎈 MFC Balloons &amp; Party Needs</h3>
+        <h3>MFC Balloons &amp; Party Needs</h3>
         <p>Your trusted partner for unforgettable celebrations.</p>
       </div>
       <div class="footer-col">
