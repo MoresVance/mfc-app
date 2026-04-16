@@ -1,3 +1,4 @@
+<?php $currentPage = basename($_SERVER['PHP_SELF']); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,10 +21,10 @@
     <span class="nav-brand-text">MFC Balloons & Party Needs</span>
   </div>
   <ul class="nav-links">
-    <li><a href="/index.php" id="nav-home" class="active">Home</a></li>
+    <li><a href="/index.php" id="nav-home" class="<?php echo $currentPage === 'index.php' ? 'active' : ''; ?>">Home</a></li>
     <li><a href="#" id="nav-browse">Browse Services</a></li>
     <li><a href="#" id="nav-bookings">My Bookings</a></li>
-    <li><a href="/user/availability.php" id="nav-availability">Availability</a></li>
+    <li><a href="/user/availability.php" id="nav-availability" class="<?php echo $currentPage === 'availability.php' ? 'active' : ''; ?>">Availability</a></li>
   </ul>
   <div class="nav-actions">
     <button class="nav-icon-btn" id="Account"></button>

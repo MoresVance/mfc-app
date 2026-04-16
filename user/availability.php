@@ -38,22 +38,43 @@
                         <div class="day-cell empty"></div>
                         <div class="day-cell empty"></div>
                         
-                        <div class="day-cell today">
-                            <span class="day-number">1</span>
-                        </div>
+                        <div class="day-cell booked"><span class="day-number">1</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
+                        <div class="day-cell booked"><span class="day-number">2</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
+                        <div class="day-cell available"><span class="day-number">3</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell available"><span class="day-number">4</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell available"><span class="day-number">5</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell booked"><span class="day-number">6</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
+                        <div class="day-cell booked"><span class="day-number">7</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
 
-                        <div class="day-cell"><span class="day-number">2</span></div>
-                        <div class="day-cell"><span class="day-number">3</span></div>
-                        <div class="day-cell"><span class="day-number">4</span></div>
-                        <div class="day-cell"><span class="day-number">5</span></div>
-                        <div class="day-cell"><span class="day-number">6</span></div>
-                        <div class="day-cell"><span class="day-number">7</span></div>
-                        <div class="day-cell"><span class="day-number">8</span></div>
-                        <div class="day-cell"><span class="day-number">9</span></div>
-                        <div class="day-cell"><span class="day-number">10</span></div>
-                        <div class="day-cell"><span class="day-number">11</span></div>
-                        <div class="day-cell"><span class="day-number">12</span></div>
+                        <div class="day-cell available"><span class="day-number">8</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell available"><span class="day-number">9</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell booked"><span class="day-number">10</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
+                        <div class="day-cell available"><span class="day-number">11</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell available"><span class="day-number">12</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell booked"><span class="day-number">13</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
+                        <div class="day-cell booked"><span class="day-number">14</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
 
+                        <div class="day-cell available"><span class="day-number">15</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell available"><span class="day-number">16</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell available"><span class="day-number">17</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell available"><span class="day-number">18</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell booked"><span class="day-number">19</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
+                        <div class="day-cell booked"><span class="day-number">20</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
+                        <div class="day-cell booked"><span class="day-number">21</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
+
+                        <div class="day-cell available"><span class="day-number">22</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell available"><span class="day-number">23</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell available"><span class="day-number">24</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell available"><span class="day-number">25</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell available"><span class="day-number">26</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell booked"><span class="day-number">27</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
+                        <div class="day-cell booked"><span class="day-number">28</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
+                        <div class="day-cell available"><span class="day-number">29</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+                        <div class="day-cell available"><span class="day-number">30</span><button type="button" class="day-action day-action--available">Book Now</button></div>
+
+                        <div class="day-cell empty"></div>
+                        <div class="day-cell empty"></div>
+                        <div class="day-cell empty"></div>
                         </div>
 
                     <div class="legend">

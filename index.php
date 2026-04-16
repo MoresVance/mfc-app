@@ -12,7 +12,7 @@
       <p class="hero-sub">Affordable balloon decors, food carts &amp; party entertainment.</p>
       <div class="hero-cta">
         <button class="btn btn-primary">Start booking</button>
-        <button class="btn btn-outline-white">View availability</button>
+        <button class="btn btn-outline-white" onClick="window.location.href='/user/availability.php'">View availability</button>
       </div>
     </div>
   </section>
@@ -59,7 +59,7 @@
     <p>Whether it's a birthday, wedding, or corporate event, MFC provides complete party solutions.</p>
     <div class="value-cta">
       <button class="btn btn-primary">Start booking</button>
-      <button class="btn btn-outline">View our work</button>
+      <button class="btn btn-outline" onClick="window.location.href='https://web.facebook.com/profile.php?id=100057537996091&sk=photos'">View our work</button>
     </div>
   </section>
 

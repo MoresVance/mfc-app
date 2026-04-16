@@ -17,7 +17,7 @@ body {
 .content-wrapper {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 48px 32px;
+    padding: 32px 32px;
 }
 
 /* Header & Buttons */
@@ -25,12 +25,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
 .calendar-header h1 {
-    font-size: 32px;
-    font-weight: 600;
+    font-size: 28px;
+    font-weight: 800;
     color: #1a1a1a;
 }
 
@@ -78,20 +78,23 @@ body {
 /* Calendar Card */
 .calendar-card {
     background-color: white;
-    padding: 24px;
+    padding: 20px;
     border-radius: 12px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 .month-navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 .month-navigation h2 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     color: #1a1a1a;
 }
@@ -112,31 +115,47 @@ body {
 /* Grid System */
 .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(7, 88px);
+    gap: 6px;
+    justify-content: center;
 }
 
 .day-headers {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     color: #666;
     text-align: center;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .day-cell {
-    aspect-ratio: 1 / 1;
-    min-height: 120px;
-    padding: 12px;
+    width: 88px;
+    height: 88px;
+    padding: 10px;
     border: 1px solid #E5E5E5;
     border-radius: 8px;
-    background-color: #2E7D4F5A; 
+    background-color: #f8faf8;
     position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.day-cell:not(.empty):hover {
+    box-shadow: 0 10px 24px rgba(26, 26, 26, 0.08);
+    border-color: #d7d7d7;
 }
 
 .day-cell.empty {
     border: none;
     background-color: #F9F7F6;
+}
+
+.day-cell.available {
+    background-color: rgba(46, 125, 79, 0.08);
+}
+
+.day-cell.booked {
+    background-color: rgba(176, 58, 46, 0.08);
 }
 
 .day-cell.today {
@@ -153,9 +172,84 @@ body {
 }
 
 .day-number {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     color: #1a1a1a;
+}
+
+.day-action {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: none;
+    border-radius: 50px;
+    padding: 5px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    pointer-events: none;
+}
+
+.day-cell:hover .day-action {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.day-action--available {
+    background-color: #2E7D4F;
+    color: #fff;
+}
+
+.day-action--available:hover {
+    background-color: #23643f;
+}
+
+.day-action--booked {
+    background-color: #B03A2E;
+    color: #fff;
+}
+
+.day-cell.booked:hover .day-action--booked {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.day-action:disabled {
+    cursor: default;
+}
+
+.day-cell.booked:hover {
+    background-color: rgba(176, 58, 46, 0.12);
+}
+
+.day-cell.available:hover {
+    background-color: rgba(46, 125, 79, 0.12);
+}
+
+@media (max-width: 760px) {
+    .content-wrapper {
+        padding: 24px 16px;
+    }
+
+    .calendar-card {
+        width: 100%;
+        padding: 16px;
+    }
+
+    .calendar-grid {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+
+    .day-cell {
+        width: auto;
+        height: auto;
+        min-height: 72px;
+    }
 }
 
 /* Status Dots */
@@ -179,8 +273,8 @@ body {
 .legend {
     display: flex;
     gap: 24px;
-    margin-top: 24px;
-    padding-top: 24px;
+    margin-top: 16px;
+    padding-top: 16px;
     border-top: 1px solid #E5E5E5;
 }
 
