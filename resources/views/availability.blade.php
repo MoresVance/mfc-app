@@ -5,76 +5,94 @@
 @endpush
 
 @section('content')
-    <div class="admin-container">
-        <div class="content-wrapper">
-            <header class="calendar-header">
-                <h1>Booking Calendar</h1>
-            </header>
+@php
+    $calendarCells = [
+        ['type' => 'empty'],
+        ['type' => 'empty'],
+        ['type' => 'booked', 'day' => 1],
+        ['type' => 'booked', 'day' => 2],
+        ['type' => 'available', 'day' => 3],
+        ['type' => 'available', 'day' => 4],
+        ['type' => 'available', 'day' => 5],
+        ['type' => 'booked', 'day' => 6],
+        ['type' => 'booked', 'day' => 7],
+        ['type' => 'available', 'day' => 8],
+        ['type' => 'available', 'day' => 9],
+        ['type' => 'booked', 'day' => 10],
+        ['type' => 'available', 'day' => 11],
+        ['type' => 'available', 'day' => 12],
+        ['type' => 'booked', 'day' => 13],
+        ['type' => 'booked', 'day' => 14],
+        ['type' => 'available', 'day' => 15],
+        ['type' => 'available', 'day' => 16],
+        ['type' => 'available', 'day' => 17],
+        ['type' => 'available', 'day' => 18],
+        ['type' => 'booked', 'day' => 19],
+        ['type' => 'booked', 'day' => 20],
+        ['type' => 'booked', 'day' => 21],
+        ['type' => 'available', 'day' => 22],
+        ['type' => 'available', 'day' => 23],
+        ['type' => 'available', 'day' => 24],
+        ['type' => 'available', 'day' => 25],
+        ['type' => 'available', 'day' => 26],
+        ['type' => 'booked', 'day' => 27],
+        ['type' => 'booked', 'day' => 28],
+        ['type' => 'available', 'day' => 29],
+        ['type' => 'available', 'day' => 30],
+        ['type' => 'empty'],
+        ['type' => 'empty'],
+        ['type' => 'empty'],
+    ];
+@endphp
 
-            <div class="main-layout">
-                <div class="calendar-card">
-                    <div class="month-navigation">
-                        <button class="nav-btn"><i data-lucide="chevron-left"></i></button>
-                        <h2>April 2026</h2>
-                        <button class="nav-btn"><i data-lucide="chevron-right"></i></button>
+<div class="admin-container">
+    <div class="content-wrapper">
+        <header class="calendar-header">
+            <h1>Booking Calendar</h1>
+        </header>
+
+        <div class="main-layout">
+            <div class="calendar-card">
+                <div class="month-navigation">
+                    <button class="nav-btn"><i data-lucide="chevron-left"></i></button>
+                    <h2>April 2026</h2>
+                    <button class="nav-btn"><i data-lucide="chevron-right"></i></button>
+                </div>
+
+                <div class="calendar-grid day-headers">
+                    <div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div>
+                </div>
+
+                <div class="calendar-grid calendar-days">
+                    @foreach ($calendarCells as $cell)
+                        @if ($cell['type'] === 'empty')
+                            <div class="day-cell empty"></div>
+                        @elseif ($cell['type'] === 'available')
+                            <div class="day-cell available">
+                                <span class="day-number">{{ $cell['day'] }}</span>
+                                <a href="{{ route('booking') }}" class="day-action day-action--available">Book Now</a>
+                            </div>
+                        @else
+                            <div class="day-cell booked">
+                                <span class="day-number">{{ $cell['day'] }}</span>
+                                <button type="button" class="day-action day-action--booked" disabled>Fully Booked</button>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="dot available"></div>
+                        <span>Available</span>
                     </div>
-
-                    <div class="calendar-grid day-headers">
-                        <div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div>
-                    </div>
-
-                    <div class="calendar-grid calendar-days">
-                        <div class="day-cell empty"></div>
-                        <div class="day-cell empty"></div>
-
-                        <div class="day-cell booked"><span class="day-number">1</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
-                        <div class="day-cell booked"><span class="day-number">2</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
-                        <div class="day-cell available"><span class="day-number">3</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell available"><span class="day-number">4</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell available"><span class="day-number">5</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell booked"><span class="day-number">6</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
-                        <div class="day-cell booked"><span class="day-number">7</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
-                        <div class="day-cell available"><span class="day-number">8</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell available"><span class="day-number">9</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell booked"><span class="day-number">10</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
-                        <div class="day-cell available"><span class="day-number">11</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell available"><span class="day-number">12</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell booked"><span class="day-number">13</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
-                        <div class="day-cell booked"><span class="day-number">14</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
-                        <div class="day-cell available"><span class="day-number">15</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell available"><span class="day-number">16</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell available"><span class="day-number">17</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell available"><span class="day-number">18</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell booked"><span class="day-number">19</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
-                        <div class="day-cell booked"><span class="day-number">20</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
-                        <div class="day-cell booked"><span class="day-number">21</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
-                        <div class="day-cell available"><span class="day-number">22</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell available"><span class="day-number">23</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell available"><span class="day-number">24</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell available"><span class="day-number">25</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell available"><span class="day-number">26</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell booked"><span class="day-number">27</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
-                        <div class="day-cell booked"><span class="day-number">28</span><button type="button" class="day-action day-action--booked" disabled>Fully Booked</button></div>
-                        <div class="day-cell available"><span class="day-number">29</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-                        <div class="day-cell available"><span class="day-number">30</span><button type="button" class="day-action day-action--available">Book Now</button></div>
-
-                        <div class="day-cell empty"></div>
-                        <div class="day-cell empty"></div>
-                        <div class="day-cell empty"></div>
-                    </div>
-
-                    <div class="legend">
-                        <div class="legend-item">
-                            <div class="dot available"></div>
-                            <span>Available</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="dot booked"></div>
-                            <span>Fully Booked</span>
-                        </div>
+                    <div class="legend-item">
+                        <div class="dot booked"></div>
+                        <span>Fully Booked</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

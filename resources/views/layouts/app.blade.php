@@ -26,5 +26,7 @@
     @if (($showShell ?? true) === true)
         @include('partials.footer')
     @endif
+
+    @stack('scripts')
 </body>
 </html>

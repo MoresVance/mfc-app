@@ -112,6 +112,7 @@
 .btn-primary {
     background-color: var(--red);
     color: var(--white);
+    font-size: 0.85rem;
 }
 
 .btn-primary:hover {
@@ -140,6 +141,7 @@
 .cat-inner {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 30px;
     flex-wrap: wrap;
 }
@@ -148,6 +150,10 @@
     text-align: center;
     cursor: pointer;
     transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px;
 }
 
 .cat-item:hover { transform: translateY(-5px); }
@@ -171,6 +177,21 @@
     color: var(--text);
 }
 
+.booking-notice {
+  background: #fff8e1;
+  border-top: 1px solid #ffe0b2;
+  border-bottom: 1px solid #ffe0b2;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: #5d4037;
+  line-height: 1.5;
+}
+ 
+.notice-icon { font-size: 18px; flex-shrink: 0; }
+
 .packages-section {
     padding: 60px 5%;
     text-align: center;
@@ -192,6 +213,12 @@
     transition: 0.3s;
 }
 
+.pkg-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: var(--text);
+}
+
 .pkg-card:hover { 
     transform: translateY(-5px); 
     box-shadow: 0 10px 20px rgba(0,0,0,0.05);
@@ -199,11 +226,19 @@
 
 .pkg-img {
     height: 150px;
+    width: 100%;
+    background: var(--bg);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 4rem;
-    background: var(--bg);
+    overflow: hidden;
+}
+
+.pkg-img img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
 }
 
 .pkg-body { padding: 25px; text-align: left; }
