@@ -75,7 +75,7 @@
             </div>
         </section>
 
-        <section class="packages-section">
+        <section class="packages-section" id="packages-section">
             <h2>Balloon Decor &amp; Event Packages</h2>
             <p class="section-sub">
                 Custom quotes based on your theme &amp; venue size.

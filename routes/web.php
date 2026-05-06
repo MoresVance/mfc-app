@@ -1,44 +1,36 @@
 <?php
 
+use App\Http\Controllers\AdminBookingController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home')->name('home');
-Route::get('/booking', function () {
-	return view('booking-form', [
-		'today' => now()->format('Y-m-d'),
-		'services' => [
-			['id' => 1, 'name' => 'Balloon Backdrop', 'price' => 1000, 'emoji' => '🎈', 'category' => 'packages', 'priceLabel' => 'Custom quote'],
-			['id' => 2, 'name' => 'Entrance Arch', 'price' => 1500, 'emoji' => '🌸', 'category' => 'packages', 'priceLabel' => 'Custom quote'],
-			['id' => 3, 'name' => 'Full Venue Setup', 'price' => 3000, 'emoji' => '🎀', 'category' => 'packages', 'priceLabel' => 'Custom quote'],
-			['id' => 4, 'name' => 'Party Host', 'price' => 3500, 'emoji' => '🎤', 'category' => 'entertainment'],
-			['id' => 5, 'name' => 'Clown', 'price' => 1000, 'emoji' => '🤡', 'category' => 'entertainment'],
-			['id' => 6, 'name' => 'Magician', 'price' => 5000, 'emoji' => '🎩', 'category' => 'entertainment'],
-			['id' => 7, 'name' => 'Mascot', 'price' => 1500, 'emoji' => '🐻', 'category' => 'entertainment'],
-			['id' => 8, 'name' => 'Bubble Show', 'price' => 2500, 'emoji' => '🫧', 'category' => 'entertainment'],
-			['id' => 9, 'name' => 'Balloon Twister', 'price' => 2500, 'emoji' => '🎈', 'category' => 'entertainment'],
-			['id' => 10, 'name' => 'Face Painting', 'price' => 2500, 'emoji' => '🎨', 'category' => 'entertainment'],
-			['id' => 11, 'name' => 'Cotton Candy', 'price' => 1800, 'emoji' => '🍭', 'category' => 'foodcarts'],
-			['id' => 12, 'name' => 'Popcorn', 'price' => 1800, 'emoji' => '🍿', 'category' => 'foodcarts'],
-			['id' => 13, 'name' => 'Hotdog', 'price' => 1800, 'emoji' => '🌭', 'category' => 'foodcarts'],
-			['id' => 14, 'name' => 'Ice Cream', 'price' => 2800, 'emoji' => '🍦', 'category' => 'foodcarts'],
-			['id' => 15, 'name' => 'French Fries', 'price' => 2800, 'emoji' => '🍟', 'category' => 'foodcarts'],
-			['id' => 16, 'name' => 'Street Foods', 'price' => 2800, 'emoji' => '🌮', 'category' => 'foodcarts'],
-			['id' => 17, 'name' => 'Corndog', 'price' => 2800, 'emoji' => '🌭', 'category' => 'foodcarts'],
-			['id' => 18, 'name' => 'Hotdog Waffle', 'price' => 2800, 'emoji' => '🧇', 'category' => 'foodcarts'],
-			['id' => 21, 'name' => 'Balloon Stand / Pillars', 'price' => 0, 'emoji' => '🎀', 'category' => 'decor', 'priceLabel' => 'Custom quote'],
-			['id' => 22, 'name' => 'Balloon Bouquets', 'price' => 0, 'emoji' => '💐', 'category' => 'decor', 'priceLabel' => 'Custom quote'],
-			['id' => 23, 'name' => 'Balloon Centerpieces', 'price' => 0, 'emoji' => '🎁', 'category' => 'decor', 'priceLabel' => 'Custom quote'],
-		],
-	]);
-})->name('booking');
-Route::view('/login', 'auth.login')->name('login');
-Route::view('/signup', 'auth.signup')->name('signup');
+Route::get('/booking', fn () => redirect()->route('bookings.create'))->name('booking');
+Route::get('/login', [AuthController::class, 'createLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.store');
+Route::get('/signup', [AuthController::class, 'createRegister'])->name('signup');
+Route::post('/signup', [AuthController::class, 'register'])->name('signup.store');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::view('/availability', 'availability')->name('availability');
-Route::redirect('/bookings', '/booking')->name('bookings.index');
 
-Route::post('/bookings', function () {
-	return redirect()->route('booking')->with('booking_success', true);
-})->name('bookings.store');
+Route::middleware('auth')->group(function (): void {
+	Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
+	Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
+	Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+	Route::get('/bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
+	Route::post('/bookings/{booking}/upload-payment', [BookingController::class, 'uploadPayment'])->name('bookings.upload-payment');
+});
+
+Route::middleware(['auth', 'admin'])
+	->prefix('admin')
+	->name('admin.')
+	->group(function (): void {
+		Route::get('/bookings', [AdminBookingController::class, 'index'])->name('bookings.index');
+		Route::get('/bookings/calendar', [AdminBookingController::class, 'calendar'])->name('bookings.calendar');
+		Route::get('/bookings/{booking}', [AdminBookingController::class, 'show'])->name('bookings.show');
+		Route::patch('/bookings/{booking}/status', [AdminBookingController::class, 'updateStatus'])->name('bookings.update-status');
+	});
 
 Route::redirect('/index.php', '/');
 Route::redirect('/booking/create', '/booking');

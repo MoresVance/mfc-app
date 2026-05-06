@@ -99,6 +99,7 @@
     padding: 12px 28px;
     border-radius: 6px; 
     border: none;
+    text-decoration: none;
     cursor: pointer;
     font-weight: 600;
     transition: transform 0.2s, opacity 0.2s;

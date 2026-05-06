@@ -16,11 +16,14 @@
                 <p>Sign in to continue booking with MFC</p>
             </div>
 
-            <form class="login-form" id="loginForm" novalidate>
+            <form class="login-form" id="loginForm" method="POST" action="{{ route('login.store') }}">
+                @csrf
                 <div class="form-group">
-                    <input type="email" id="email" name="email" required autocomplete="email" placeholder="Email address">
+                    <input type="email" id="email" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email address">
                     <label for="email">Email address</label>
-                    <span class="error-message" id="emailError"></span>
+                    @error('email')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -31,7 +34,9 @@
                             <path d="M9 3C4.5 3 1.05 6.21 0.5 9c.55 2.79 4 6 8.5 6s7.95-3.21 8.5-6c-.55-2.79-4-6-8.5-6zm0 10a4 4 0 110-8 4 4 0 010 8zm0-6.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5z" fill="currentColor"/>
                         </svg>
                     </button>
-                    <span class="error-message" id="passwordError"></span>
+                    @error('password')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="form-options">
@@ -44,7 +49,7 @@
                         </span>
                         Keep me signed in
                     </label>
-                    <a href="#" class="forgot-link">Forgot password?</a>
+                    <a href="{{ route('signup') }}" class="forgot-link">Create an account</a>
                 </div>
 
                 <button type="submit" class="login-btn">
@@ -59,28 +64,32 @@
                 </button>
             </form>
 
-            <div class="divider">
-                <span>or sign in with</span>
-            </div>
-
-            <div class="social-login">
-                <button type="button" class="social-btn">Google</button>
-                <button type="button" class="social-btn">Facebook</button>
-            </div>
-
             <div class="signup-link">
                 <p>New to MFC? <a href="{{ route('signup') }}">Create an account</a></p>
             </div>
-
-            <div class="success-message" id="successMessage">
-                <div class="success-icon">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                        <circle cx="16" cy="16" r="16" fill="#c0392b"/>
-                        <path d="M11 16l4 4 8-8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-                <h3>Welcome back!</h3>
-            </div>
         </div>
     </div>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('loginForm');
+    const toggle = document.getElementById('passwordToggle');
+    const password = document.getElementById('password');
+
+    if (toggle && password) {
+        toggle.addEventListener('click', () => {
+            password.type = password.type === 'password' ? 'text' : 'password';
+        });
+    }
+
+    if (form) {
+        form.addEventListener('submit', () => {
+            const button = form.querySelector('.login-btn');
+            if (button) button.classList.add('loading');
+        });
+    }
+});
+</script>
+@endpush
 @endsection
