@@ -70,6 +70,30 @@
   font-weight: 700;
 }
 
+/* Back button (matching booking form style) */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  background: var(--bd-card);
+  color: var(--bd-red);
+  border: 1px solid var(--bd-border);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    color: var(--white);
+    background: var(--red);
+    border-color: var(--red);
+}
+
 .bd-muted {
   color: var(--bd-muted);
 }

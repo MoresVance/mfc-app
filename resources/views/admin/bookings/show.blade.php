@@ -14,7 +14,9 @@
     @endif
     <div class="bd-header">
         <h1 class="bd-title">Booking Review</h1>
-        <a href="{{ route('admin.bookings.index') }}" class="bd-link">Back to bookings</a>
+        <a href="{{ route('admin.bookings.index') }}" class="back-btn" aria-label="Back to bookings">
+            <span aria-hidden="true">&#8592;</span>
+        </a>
     </div>
 
     <div class="bd-card bd-stack">
