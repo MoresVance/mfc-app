@@ -15,13 +15,42 @@ use Illuminate\View\View;
 
 class BookingController extends Controller
 {
-    public function create(): View
+    public function create(Request $request): View
     {
         $serviceModels = Service::query()
             ->where('is_active', true)
             ->orderBy('category')
             ->orderBy('name')
             ->get();
+
+        $preselectedServiceIds = collect();
+
+        if ($request->filled('service_id')) {
+            $preselectedServiceIds->push((int) $request->input('service_id'));
+        }
+
+        if ($request->filled('service')) {
+            $serviceQuery = trim((string) $request->input('service'));
+
+            $matchedService = $serviceModels->first(function (Service $service) use ($serviceQuery): bool {
+                return str_contains(mb_strtolower($service->name), mb_strtolower($serviceQuery));
+            });
+
+            if ($matchedService) {
+                $preselectedServiceIds->push((int) $matchedService->id);
+            }
+        }
+
+        collect($request->input('services', []))
+            ->map(fn ($serviceId): int => (int) $serviceId)
+            ->filter(fn (int $serviceId): bool => $serviceId > 0)
+            ->each(fn (int $serviceId) => $preselectedServiceIds->push($serviceId));
+
+        $preselectedServiceIds = $preselectedServiceIds
+            ->unique()
+            ->filter(fn (int $serviceId): bool => $serviceModels->contains('id', $serviceId))
+            ->values()
+            ->all();
 
         $services = $serviceModels
             ->map(function (Service $service): array {
@@ -53,6 +82,7 @@ class BookingController extends Controller
             'today' => Carbon::today()->toDateString(),
             'services' => $services,
             'categories' => $categories,
+            'preselectedServiceIds' => $preselectedServiceIds,
         ]);
     }
 

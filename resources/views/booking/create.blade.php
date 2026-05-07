@@ -155,9 +155,15 @@
 <script>
 const services = @json($services);
 const oldServices = @json(old('services', []));
+const preselectedServiceIds = @json($preselectedServiceIds ?? []);
 const selected  = {};
 const categoryButtons = Array.from(document.querySelectorAll('[data-category-filter]'));
 const serviceRows = Array.from(document.querySelectorAll('.bf-service-row'));
+const serviceList = document.getElementById('serviceList');
+
+serviceRows.forEach((row, index) => {
+    row.dataset.initialOrder = String(index);
+});
 
 function setActiveCategory(category) {
     categoryButtons.forEach(button => {
@@ -192,6 +198,7 @@ function toggleService(id) {
         qtyInput.value = 0;
         row.classList.remove('bf-service-row--active');
     }
+    reorderServiceRows();
     renderSummary();
     updateSubmit();
 }
@@ -209,11 +216,41 @@ function changeQty(id, delta) {
         row.classList.add('bf-service-row--active');
     }
 
+    if (delta < 0 && selected[id] <= 1) {
+        const chk = document.getElementById('chk_' + id);
+        const row = document.getElementById('row_' + id);
+        chk.checked = false;
+        delete selected[id];
+        document.getElementById('qty_' + id).textContent = 0;
+        document.getElementById('qtyInput_' + id).value = 0;
+        row.classList.remove('bf-service-row--active');
+        reorderServiceRows();
+        renderSummary();
+        updateSubmit();
+        return;
+    }
+
     selected[id] = Math.max(1, selected[id] + delta);
     document.getElementById('qty_' + id).textContent = selected[id];
     document.getElementById('qtyInput_' + id).value  = selected[id];
+    reorderServiceRows();
     renderSummary();
     updateSubmit();
+}
+
+function reorderServiceRows() {
+    const rows = [...serviceRows].sort((a, b) => {
+        const aSelected = !!selected[a.dataset.id];
+        const bSelected = !!selected[b.dataset.id];
+
+        if (aSelected !== bSelected) {
+            return aSelected ? -1 : 1;
+        }
+
+        return Number(a.dataset.initialOrder) - Number(b.dataset.initialOrder);
+    });
+
+    rows.forEach(row => serviceList.appendChild(row));
 }
 
 function renderSummary() {
@@ -302,9 +339,34 @@ function hydrateFromOldInput() {
     });
 }
 
+function hydrateFromPreselected() {
+    preselectedServiceIds.forEach(id => {
+        const stringId = String(id);
+
+        if (selected[stringId]) return;
+
+        const chk = document.getElementById('chk_' + stringId);
+        const qtySpan = document.getElementById('qty_' + stringId);
+        const qtyInput = document.getElementById('qtyInput_' + stringId);
+        const row = document.getElementById('row_' + stringId);
+
+        if (!chk || !qtySpan || !qtyInput || !row) return;
+
+        chk.checked = true;
+        selected[stringId] = 1;
+        qtySpan.textContent = 1;
+        qtyInput.value = 1;
+        row.classList.add('bf-service-row--active');
+    });
+}
+
 setActiveCategory('all');
 hydrateFromOldInput();
+if (!Object.keys(selected).length) {
+    hydrateFromPreselected();
+}
 syncStepperState();
+reorderServiceRows();
 renderSummary();
 updateSubmit();
 

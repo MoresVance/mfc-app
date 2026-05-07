@@ -324,3 +324,17 @@
         
     </main>
 @endsection
+
+@push('scripts')
+<script>
+document.querySelectorAll('.pkg-card .btn.btn-primary.btn-block').forEach(link => {
+    const card = link.closest('.pkg-card');
+    const title = card ? card.querySelector('h3') : null;
+    const service = title ? title.textContent.trim() : '';
+
+    if (!service) return;
+
+    link.href = `{{ route('bookings.create') }}?service=${encodeURIComponent(service)}`;
+});
+</script>
+@endpush
