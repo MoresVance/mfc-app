@@ -22,6 +22,7 @@ class UpdateBookingStatusRequest extends FormRequest
                 Booking::STATUS_AWAITING_PAYMENT,
                 Booking::STATUS_CONFIRMED,
                 Booking::STATUS_CANCELLED,
+                Booking::STATUS_REJECTED,
             ])],
             'admin_notes' => ['nullable', 'string', 'max:1000'],
         ];

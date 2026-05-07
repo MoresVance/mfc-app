@@ -724,6 +724,7 @@
 .bk-status--awaiting_payment { background: #f3e8ff; color: #6d28d9; }
 .bk-status--confirmed { background: #e4f4eb; color: #2e7d4f; }
 .bk-status--cancelled { background: #fde8e8; color: #b03a2e; }
+.bk-status--rejected { background: #fce7f3; color: #9d174d; }
 
 .bk-empty-state {
   background: var(--card);

@@ -28,6 +28,7 @@ class Booking extends Model
     public const STATUS_AWAITING_PAYMENT = 'awaiting_payment';
     public const STATUS_CONFIRMED = 'confirmed';
     public const STATUS_CANCELLED = 'cancelled';
+    public const STATUS_REJECTED = 'rejected';
 
     protected function casts(): array
     {

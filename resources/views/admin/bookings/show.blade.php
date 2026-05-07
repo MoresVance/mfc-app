@@ -56,7 +56,7 @@
         <h2 class="bd-section-title">Update status</h2>
         <div class="bd-field">
         <select name="status" class="bd-select">
-            @foreach (['pending','approved','awaiting_payment','confirmed','cancelled'] as $status)
+            @foreach (['pending','approved','awaiting_payment','confirmed','cancelled','rejected'] as $status)
                 <option value="{{ $status }}" @selected($booking->status === $status)>{{ $status }}</option>
             @endforeach
         </select>

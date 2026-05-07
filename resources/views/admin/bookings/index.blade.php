@@ -16,7 +16,7 @@
         <input type="text" name="search" value="{{ request('search') }}" placeholder="Search name or email" class="ab-input">
         <select name="status" class="ab-select">
             <option value="">All statuses</option>
-            @foreach (['pending','approved','awaiting_payment','confirmed','cancelled'] as $status)
+            @foreach (['pending','approved','awaiting_payment','confirmed','cancelled','rejected'] as $status)
                 <option value="{{ $status }}" @selected(request('status') === $status)>{{ $status }}</option>
             @endforeach
         </select>
