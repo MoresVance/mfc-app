@@ -27,7 +27,7 @@
         </header>
 
         <div class="main-layout">
-            <div class="calendar-card" data-controls="on">
+            <div class="calendar-card" data-controls="{{ $isAdmin ? 'on' : 'off' }}">
                 <div class="month-navigation">
                     <a href="{{ route('availability', ['month' => $previousMonth]) }}" class="nav-btn" aria-label="Previous month">&#8592;</a>
                     <h2>{{ $monthLabel }}</h2>

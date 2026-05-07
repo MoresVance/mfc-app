@@ -18,6 +18,13 @@
         <div class="bd-row"><span class="bd-label">Contact:</span> <span>{{ $booking->contact_name }} · {{ $booking->contact_email }} · {{ $booking->contact_phone }}</span></div>
         <div class="bd-row"><span class="bd-label">Details:</span> <span>{{ $booking->event_details ?: 'None' }}</span></div>
 
+        @if ($booking->admin_notes)
+            <div class="bd-row">
+                <span class="bd-label">Admin note:</span>
+                <div class="bd-admin-note">{{ $booking->admin_notes }}</div>
+            </div>
+        @endif
+
         <div>
             <h2 class="bd-section-title">Services</h2>
             <ul class="bd-list">

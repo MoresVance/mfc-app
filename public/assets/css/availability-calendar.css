@@ -160,6 +160,7 @@
 }
 
 .day-action--book.day-action--available,
+.day-action--book.day-action--past,
 .day-action--book.day-action--booked,
 .day-action--admin[data-admin-status="booked"],
 .day-action--admin[data-admin-status="available"] {
@@ -394,9 +395,20 @@
 .day-action--past {
     background-color: #5f6772;
     color: #fff;
+    white-space: nowrap;
+    padding: 5px 8px;
+}
+
+.day-action--past:hover {
+    background-color: #474d57;
 }
 
 .day-cell.booked:hover .day-action--booked {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.day-cell.past:hover .day-action--past {
     opacity: 1;
     transform: translateY(0);
 }

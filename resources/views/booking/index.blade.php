@@ -32,7 +32,12 @@
                                 <h3>{{ $booking->contact_name }}</h3>
                                 <p>{{ $booking->event_date->format('M j, Y') }}</p>
                             </div>
-                            <span class="bk-status bk-status--{{ $booking->status }}">{{ str_replace('_', ' ', $booking->status) }}</span>
+                            <div style="text-align:right">
+                                <span class="bk-status bk-status--{{ $booking->status }}">{{ str_replace('_', ' ', $booking->status) }}</span>
+                                @if ($booking->admin_notes)
+                                    <div class="bk-admin-note-short" title="Admin note">!</div>
+                                @endif
+                            </div>
                         </div>
                         <div class="bk-card-body">
                             <span>{{ $booking->services->count() }} service{{ $booking->services->count() === 1 ? '' : 's' }}</span>

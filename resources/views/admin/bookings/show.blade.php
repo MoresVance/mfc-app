@@ -18,20 +18,30 @@
     </div>
 
     <div class="bd-card bd-stack">
-        <div class="bd-row"><span class="bd-label">Client:</span> <span>{{ $booking->contact_name }}</span></div>
-        <div class="bd-row"><span class="bd-label">Email:</span> <span>{{ $booking->contact_email }}</span></div>
-        <div class="bd-row"><span class="bd-label">Phone:</span> <span>{{ $booking->contact_phone }}</span></div>
-        <div class="bd-row"><span class="bd-label">Status:</span> <span>{{ $booking->status }}</span></div>
-        <div class="bd-row"><span class="bd-label">Admin notes:</span> <span>{{ $booking->admin_notes ?: 'None' }}</span></div>
+        <div class="bd-row"><span class="bd-label">Status:</span> <span>{{ str_replace('_', ' ', $booking->status) }}</span></div>
+        <div class="bd-row"><span class="bd-label">Event date:</span> <span>{{ $booking->event_date->toFormattedDateString() }}</span></div>
+        <div class="bd-row"><span class="bd-label">Client:</span> <span>{{ $booking->contact_name }} · {{ $booking->contact_email }} · {{ $booking->contact_phone }}</span></div>
+        <div class="bd-row"><span class="bd-label">Details:</span> <span>{{ $booking->event_details ?: 'None' }}</span></div>
 
         <div>
             <h2 class="bd-section-title">Services</h2>
             <ul class="bd-list">
                 @foreach ($booking->services as $service)
-                    <li>{{ $service->name }} x {{ $service->pivot->quantity }}</li>
+                    <li>{{ $service->name }} x {{ $service->pivot->quantity }} ({{ (int) $service->pivot->unit_price === 0 ? 'Custom quote' : '₱' . number_format($service->pivot->unit_price) }})</li>
                 @endforeach
             </ul>
         </div>
+
+        <div class="bd-total">
+            Subtotal: {{ $booking->subtotal() > 0 ? '₱' . number_format($booking->subtotal()) : 'Custom quote' }}
+        </div>
+
+        @if ($booking->admin_notes)
+            <div class="bd-row">
+                <span class="bd-label">Admin notes:</span>
+                <div class="bd-admin-note">{{ $booking->admin_notes }}</div>
+            </div>
+        @endif
 
         @if ($booking->paymentProof)
             <div class="bd-row"><span class="bd-label">Payment proof:</span> <span>{{ $booking->paymentProof->file_path }}</span></div>

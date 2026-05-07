@@ -141,6 +141,17 @@
   color: var(--bd-green);
 }
 
+/* Admin note styling for users */
+.bd-admin-note {
+  background: #fff7e6;
+  border: 1px solid #ffe7bf;
+  color: #5d4037;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-top: 6px;
+  white-space: pre-wrap;
+}
+
 @media (max-width: 640px) {
   .bd-page {
     padding: 28px 16px 56px;

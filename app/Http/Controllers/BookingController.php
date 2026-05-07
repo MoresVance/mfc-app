@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AvailabilityOverride;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UploadPaymentProofRequest;
 use App\Models\Booking;
@@ -22,6 +23,15 @@ class BookingController extends Controller
             ->orderBy('category')
             ->orderBy('name')
             ->get();
+
+        $fullyBookedDates = AvailabilityOverride::query()
+            ->where('is_fully_booked', true)
+            ->whereDate('date', '>=', Carbon::today()->toDateString())
+            ->orderBy('date')
+            ->pluck('date')
+            ->map(fn ($date): string => Carbon::parse($date)->toDateString())
+            ->values()
+            ->all();
 
         $preselectedServiceIds = collect();
 
@@ -98,6 +108,7 @@ class BookingController extends Controller
             'categories' => $categories,
             'preselectedServiceIds' => $preselectedServiceIds,
             'preselectedEventDate' => $preselectedEventDate,
+            'fullyBookedDates' => $fullyBookedDates,
         ]);
     }
 

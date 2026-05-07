@@ -9,7 +9,6 @@
     <div class="ab-container">
     <div class="ab-header">
         <h1 class="ab-title">Bookings</h1>
-        <a href="{{ route('admin.bookings.calendar') }}" class="ab-link">Calendar view</a>
     </div>
 
     <form class="ab-card ab-filter-card" method="GET">
@@ -33,7 +32,7 @@
                         <div class="ab-name">{{ $booking->contact_name }}</div>
                         <div class="ab-meta">{{ $booking->contact_email }} · {{ $booking->event_date->toFormattedDateString() }}</div>
                     </div>
-                    <div class="ab-status">{{ $booking->status }}</div>
+                    <div class="ab-status ab-status--{{ $booking->status }}">{{ str_replace('_', ' ', $booking->status) }}</div>
                 </div>
             </a>
         @endforeach

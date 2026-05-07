@@ -50,6 +50,9 @@
                         </div>
                         @error('event_date')<p class="bf-err-msg">{{ $message }}</p>@enderror
                         <p class="bf-hint">Select a date for your event (past dates are blocked)</p>
+                        <p class="bf-warning" id="fullyBookedWarning" style="display:none;">
+                            This date is already fully booked. You can still submit it, but it will most likely not be accepted unless admin can rush it for a higher price.
+                        </p>
                     </div>
 
                     <div class="bf-card">
@@ -156,7 +159,10 @@
 const services = @json($services);
 const oldServices = @json(old('services', []));
 const preselectedServiceIds = @json($preselectedServiceIds ?? []);
+const fullyBookedDates = @json($fullyBookedDates ?? []);
 const selected  = {};
+const eventDateInput = document.getElementById('event_date');
+const fullyBookedWarning = document.getElementById('fullyBookedWarning');
 const categoryButtons = Array.from(document.querySelectorAll('[data-category-filter]'));
 const serviceRows = Array.from(document.querySelectorAll('.bf-service-row'));
 const serviceList = document.getElementById('serviceList');
@@ -303,6 +309,19 @@ function updateSubmit() {
     document.getElementById('submitBtn').disabled = !Object.keys(selected).length;
 }
 
+function updateFullyBookedWarning() {
+    if (!eventDateInput || !fullyBookedWarning) return;
+
+    const selectedDate = eventDateInput.value;
+    const isFullyBooked = selectedDate && fullyBookedDates.includes(selectedDate);
+
+    if (isFullyBooked) {
+        fullyBookedWarning.style.display = 'block';
+    } else {
+        fullyBookedWarning.style.display = 'none';
+    }
+}
+
 function syncStepperState() {
     serviceRows.forEach(row => {
         const id = row.dataset.id;
@@ -369,6 +388,11 @@ syncStepperState();
 reorderServiceRows();
 renderSummary();
 updateSubmit();
+updateFullyBookedWarning();
+
+if (eventDateInput) {
+    eventDateInput.addEventListener('change', updateFullyBookedWarning);
+}
 
 const modal = document.getElementById('successModal');
 if (modal) modal.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });

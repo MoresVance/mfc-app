@@ -139,6 +139,13 @@
   white-space: nowrap;
 }
 
+/* Status color variants */
+.ab-status--pending { background: #fff4da; color: #8b5e00; }
+.ab-status--approved { background: #e3f1ff; color: #185fa5; }
+.ab-status--awaiting_payment { background: #f3e8ff; color: #6d28d9; }
+.ab-status--confirmed { background: #e4f4eb; color: #2e7d4f; }
+.ab-status--cancelled { background: #fde8e8; color: #b03a2e; }
+
 .ab-empty {
   padding: 20px;
   color: var(--ab-muted);
