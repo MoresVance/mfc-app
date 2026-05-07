@@ -52,6 +52,20 @@ class BookingController extends Controller
             ->values()
             ->all();
 
+        $preselectedEventDate = null;
+
+        if ($request->filled('event_date')) {
+            try {
+                $candidateDate = Carbon::createFromFormat('Y-m-d', (string) $request->input('event_date'))->toDateString();
+
+                if ($candidateDate >= Carbon::today()->toDateString()) {
+                    $preselectedEventDate = $candidateDate;
+                }
+            } catch (\Throwable) {
+                $preselectedEventDate = null;
+            }
+        }
+
         $services = $serviceModels
             ->map(function (Service $service): array {
                 return [
@@ -83,6 +97,7 @@ class BookingController extends Controller
             'services' => $services,
             'categories' => $categories,
             'preselectedServiceIds' => $preselectedServiceIds,
+            'preselectedEventDate' => $preselectedEventDate,
         ]);
     }
 

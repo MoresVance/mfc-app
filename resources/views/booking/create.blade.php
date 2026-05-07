@@ -44,7 +44,7 @@
                                 name="event_date"
                                 class="bf-date-input{{ $errors->has('event_date') ? ' bf-input-err' : '' }}"
                                 min="{{ $today }}"
-                                value="{{ old('event_date') }}"
+                                value="{{ old('event_date', $preselectedEventDate ?? '') }}"
                                 required
                             >
                         </div>

@@ -1,62 +1,37 @@
-@extends('layouts.app', ['title' => 'Admin Booking Calendar'])
+@extends('layouts.app', ['title' => 'Booking Calendar'])
 
 @push('styles')
     <link rel="stylesheet" href="/assets/css/availability-calendar.css">
 @endpush
 
 @section('content')
-@php
-    $calendarCells = [
-        ['type' => 'empty'],
-        ['type' => 'empty'],
-        ['type' => 'booked', 'day' => 1],
-        ['type' => 'booked', 'day' => 2],
-        ['type' => 'available', 'day' => 3],
-        ['type' => 'available', 'day' => 4],
-        ['type' => 'available', 'day' => 5],
-        ['type' => 'booked', 'day' => 6],
-        ['type' => 'booked', 'day' => 7],
-        ['type' => 'available', 'day' => 8],
-        ['type' => 'available', 'day' => 9],
-        ['type' => 'booked', 'day' => 10],
-        ['type' => 'available', 'day' => 11],
-        ['type' => 'available', 'day' => 12],
-        ['type' => 'booked', 'day' => 13],
-        ['type' => 'booked', 'day' => 14],
-        ['type' => 'available', 'day' => 15],
-        ['type' => 'available', 'day' => 16],
-        ['type' => 'available', 'day' => 17],
-        ['type' => 'available', 'day' => 18],
-        ['type' => 'booked', 'day' => 19],
-        ['type' => 'booked', 'day' => 20],
-        ['type' => 'booked', 'day' => 21],
-        ['type' => 'available', 'day' => 22],
-        ['type' => 'available', 'day' => 23],
-        ['type' => 'available', 'day' => 24],
-        ['type' => 'available', 'day' => 25],
-        ['type' => 'available', 'day' => 26],
-        ['type' => 'booked', 'day' => 27],
-        ['type' => 'booked', 'day' => 28],
-        ['type' => 'available', 'day' => 29],
-        ['type' => 'available', 'day' => 30],
-        ['type' => 'empty'],
-        ['type' => 'empty'],
-        ['type' => 'empty'],
-    ];
-@endphp
-
 <div class="admin-container">
     <div class="content-wrapper">
+        @if (session('success'))
+            <div class="calendar-alert">{{ session('success') }}</div>
+        @endif
+
         <header class="calendar-header">
             <h1>Booking Calendar</h1>
+            @if ($isAdmin)
+                <label class="admin-controls-toggle" for="adminControlsToggle">
+                    <span class="admin-controls-toggle__label">Admin controls</span>
+                    <span class="admin-controls-switch">
+                        <input type="checkbox" id="adminControlsToggle" checked>
+                        <span class="admin-controls-switch__track">
+                            <span class="admin-controls-switch__thumb"></span>
+                        </span>
+                    </span>
+                </label>
+            @endif
         </header>
 
         <div class="main-layout">
-            <div class="calendar-card">
+            <div class="calendar-card" data-controls="on">
                 <div class="month-navigation">
-                    <button class="nav-btn"><i data-lucide="chevron-left"></i></button>
-                    <h2>April 2026</h2>
-                    <button class="nav-btn"><i data-lucide="chevron-right"></i></button>
+                    <a href="{{ route('availability', ['month' => $previousMonth]) }}" class="nav-btn" aria-label="Previous month">&#8592;</a>
+                    <h2>{{ $monthLabel }}</h2>
+                    <a href="{{ route('availability', ['month' => $nextMonth]) }}" class="nav-btn" aria-label="Next month">&#8594;</a>
                 </div>
 
                 <div class="calendar-grid day-headers">
@@ -64,24 +39,55 @@
                 </div>
 
                 <div class="calendar-grid calendar-days">
-                    @foreach ($calendarCells as $cell)
-                        @if ($cell['type'] === 'empty')
-                            <div class="day-cell empty"></div>
-                        @elseif ($cell['type'] === 'available')
-                            <div class="day-cell available">
-                                <span class="day-number">{{ $cell['day'] }}</span>
-                                <a href="{{ route('booking') }}" class="day-action day-action--available">Book Now</a>
-                            </div>
-                        @else
-                            <div class="day-cell booked">
-                                <span class="day-number">{{ $cell['day'] }}</span>
-                                <button type="button" class="day-action day-action--booked" disabled>Fully Booked</button>
-                            </div>
-                        @endif
+                    @foreach ($days as $cell)
+                        @php
+                            $cellClasses = ['day-cell'];
+                            if (! $cell['isCurrentMonth']) {
+                                $cellClasses[] = 'empty';
+                            }
+                            if ($cell['isBooked']) {
+                                $cellClasses[] = 'booked';
+                            } else {
+                                $cellClasses[] = 'available';
+                            }
+                            if ($cell['isToday']) {
+                                $cellClasses[] = 'today';
+                            }
+                            if ($cell['isPast']) {
+                                $cellClasses[] = 'past';
+                            }
+                        @endphp
+                        <div class="{{ implode(' ', $cellClasses) }}">
+                            <span class="day-number">{{ $cell['day'] }}</span>
+
+                            @if ($cell['canBook'] && $cell['isCurrentMonth'])
+                                <a href="{{ route('bookings.create', ['event_date' => $cell['date']]) }}" class="day-action day-action--book day-action--available">Book Now</a>
+                            @elseif ($cell['isBooked'])
+                                <button type="button" class="day-action day-action--book day-action--booked" disabled>Fully Booked</button>
+                            @else
+                                <button type="button" class="day-action day-action--book day-action--past" disabled>Unavailable</button>
+                            @endif
+
+                            @if ($isAdmin && ! $cell['isPast'] && $cell['isCurrentMonth'])
+                                <form method="POST" action="{{ route('admin.availability.set-date-status', ['date' => $cell['date']]) }}" class="day-action day-action--admin" data-admin-status="{{ $cell['isBooked'] ? 'available' : 'booked' }}">
+                                    @csrf
+                                    @method('PATCH')
+                                    <input type="hidden" name="month" value="{{ $currentMonth }}">
+                                    <input type="hidden" name="status" value="{{ $cell['isBooked'] ? 'available' : 'booked' }}">
+                                    <button type="submit" class="day-admin-action">
+                                        {{ $cell['isBooked'] ? 'Set Available' : 'Set Fully Booked' }}
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
                     @endforeach
                 </div>
 
                 <div class="legend">
+                    <div class="legend-item">
+                        <div class="dot today"></div>
+                        <span>Today</span>
+                    </div>
                     <div class="legend-item">
                         <div class="dot available"></div>
                         <span>Available</span>
@@ -90,9 +96,36 @@
                         <div class="dot booked"></div>
                         <span>Fully Booked</span>
                     </div>
+                    <div class="legend-item">
+                        <div class="dot unavailable"></div>
+                        <span>Past / Unavailable</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+(() => {
+    const toggle = document.getElementById('adminControlsToggle');
+    const calendarCard = document.querySelector('.calendar-card');
+    if (!toggle || !calendarCard) return;
+
+    const storageKey = 'availabilityAdminControls';
+    const savedMode = localStorage.getItem(storageKey);
+    const initialMode = savedMode === null ? 'on' : savedMode;
+
+    toggle.checked = initialMode === 'on';
+    calendarCard.dataset.controls = toggle.checked ? 'on' : 'off';
+
+    toggle.addEventListener('change', () => {
+        const mode = toggle.checked ? 'on' : 'off';
+        calendarCard.dataset.controls = mode;
+        localStorage.setItem(storageKey, mode);
+    });
+})();
+</script>
+@endpush
 @endsection

@@ -6,7 +6,15 @@
     <ul class="nav-links">
         <li><a href="{{ route('home') }}" id="nav-home" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
         <li><a href="{{ route('home') }}#packages-section" id="nav-browse">Browse Services</a></li>
-        <li><a href="{{ auth()->check() ? route('bookings.index') : route('login') }}" id="nav-bookings">My Bookings</a></li>
+        <li>
+            <a
+                href="{{ auth()->check() ? route('bookings.index') : route('login') }}"
+                id="nav-bookings"
+                class="{{ request()->routeIs('bookings.*') || request()->routeIs('admin.bookings.*') ? 'active' : '' }}"
+            >
+                My Bookings
+            </a>
+        </li>
         <li><a href="{{ route('availability') }}" id="nav-availability" class="{{ request()->routeIs('availability') ? 'active' : '' }}">Availability</a></li>
     </ul>
     <div class="nav-actions">

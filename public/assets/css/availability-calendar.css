@@ -1,12 +1,13 @@
 /* Base Reset */
-* {
+.admin-container,
+.admin-container * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-body {
+.admin-container {
     background-color: #F9F7F6;
 }
 
@@ -32,6 +33,161 @@ body {
     font-size: 28px;
     font-weight: 800;
     color: #1a1a1a;
+}
+
+.admin-controls-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: #4b5563;
+    font-size: 13px;
+    font-weight: 700;
+    user-select: none;
+}
+
+.admin-controls-toggle__label {
+    letter-spacing: 0.01em;
+}
+
+.admin-controls-switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.admin-controls-switch input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.admin-controls-switch__track {
+    width: 54px;
+    height: 30px;
+    border-radius: 999px;
+    background: #d6d6d6;
+    border: 1px solid #c9c9c9;
+    position: relative;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-controls-switch__thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    transition: transform 0.2s ease;
+}
+
+.admin-controls-switch input:checked + .admin-controls-switch__track {
+    background: #2E7D4F;
+    border-color: #2E7D4F;
+}
+
+.admin-controls-switch input:checked + .admin-controls-switch__track .admin-controls-switch__thumb {
+    transform: translateX(24px);
+}
+
+.calendar-card[data-controls="on"] .day-action--book {
+    display: none;
+}
+
+.calendar-card[data-controls="off"] .day-action--admin {
+    display: none;
+}
+
+.calendar-card[data-controls="on"] .day-action--admin,
+.calendar-card[data-controls="off"] .day-action--book {
+    opacity: 0;
+    transform: translateY(8px);
+}
+
+.calendar-card[data-controls="on"] .day-cell:hover .day-action--admin,
+.calendar-card[data-controls="off"] .day-cell:hover .day-action--book {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.calendar-card[data-controls="on"] .day-action--admin,
+.calendar-card[data-controls="off"] .day-action--book {
+    display: inline-flex;
+}
+
+.day-action--admin {
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    position: absolute;
+}
+
+.day-action--book {
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    position: absolute;
+}
+
+.day-action--admin .day-admin-action,
+.day-action--book {
+    width: 100%;
+}
+
+.day-admin-action {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-weight: inherit;
+    padding: 0;
+    cursor: pointer;
+}
+
+.day-action--book,
+.day-action--admin {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 8px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.day-action--book.day-action--available,
+.day-action--book.day-action--booked,
+.day-action--admin[data-admin-status="booked"],
+.day-action--admin[data-admin-status="available"] {
+    min-width: 0;
+    width: auto;
+    border: 1px solid transparent;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.day-action--admin[data-admin-status="booked"] {
+    background-color: #B03A2E;
+    color: #fff;
+}
+
+.day-action--admin[data-admin-status="available"] {
+    background-color: #2E7D4F;
+    color: #fff;
+}
+
+.calendar-alert {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border: 1px solid #C9E9D4;
+    border-radius: 10px;
+    background: #E8F7EE;
+    color: #1E6E40;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .view-toggle {
@@ -100,9 +256,14 @@ body {
 }
 
 .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #1a1a1a;
     padding: 8px;
-    border: none;
-    background: none;
+    border: 1px solid #E5E5E5;
+    background: #fff;
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.2s;
@@ -146,8 +307,8 @@ body {
 }
 
 .day-cell.empty {
-    border: none;
-    background-color: #F9F7F6;
+    background-color: #f3f2f1;
+    opacity: 0.72;
 }
 
 .day-cell.available {
@@ -159,11 +320,12 @@ body {
 }
 
 .day-cell.today {
-    background-color: #F5E6E4;
+    background-color: #FDF3DC;
+    border-color: #E6C58A;
 }
 
 .day-cell.today .day-number {
-    color: #B03A2E;
+    color: #A26B00;
     font-weight: 600;
 }
 
@@ -177,7 +339,14 @@ body {
     color: #1a1a1a;
 }
 
+.day-cell.empty .day-number {
+    color: #8f8f8f;
+}
+
 .day-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     left: 10px;
     right: 10px;
@@ -189,6 +358,9 @@ body {
     font-weight: 600;
     letter-spacing: 0.02em;
     cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1;
     opacity: 0;
     transform: translateY(8px);
     transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
@@ -198,6 +370,7 @@ body {
 .day-cell:hover .day-action {
     opacity: 1;
     transform: translateY(0);
+    pointer-events: auto;
 }
 
 .day-action--available {
@@ -211,6 +384,15 @@ body {
 
 .day-action--booked {
     background-color: #B03A2E;
+    color: #fff;
+}
+
+.day-action--booked:hover {
+    background-color: #962d23;
+}
+
+.day-action--past {
+    background-color: #5f6772;
     color: #fff;
 }
 
@@ -229,6 +411,10 @@ body {
 
 .day-cell.available:hover {
     background-color: rgba(46, 125, 79, 0.12);
+}
+
+.day-cell.past {
+    background-color: rgba(95, 103, 114, 0.08);
 }
 
 @media (max-width: 760px) {
@@ -268,6 +454,8 @@ body {
 
 .dot.booked { background-color: #B03A2E; }
 .dot.available { background-color: #2E7D4F; }
+.dot.unavailable { background-color: #5f6772; }
+.dot.today { background-color: #E2A72E; }
 
 /* Legend */
 .legend {

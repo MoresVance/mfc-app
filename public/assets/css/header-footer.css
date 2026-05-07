@@ -1,6 +1,6 @@
 /* HEADER */
 .nav {
-  background: var(--red);
+  background: #c0392b;
   padding: 0 32px;
   height: 52px;
   display: flex;
@@ -16,7 +16,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--white); 
+  color: #ffffff;
   font-weight: 700;
   font-size: 16px;
 }
@@ -42,7 +42,7 @@
 }
 
 .nav-links a {
-  color: var(--red-light); 
+  color: #fdf0ef;
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
@@ -52,8 +52,8 @@
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: var(--white);
-  border-bottom: 2px solid var(--white);
+  color: #ffffff;
+  border-bottom: 2px solid #ffffff;
 }
 
 .nav-actions {
