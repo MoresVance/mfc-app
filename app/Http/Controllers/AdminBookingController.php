@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateBookingStatusRequest;
 use App\Models\Booking;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\View\View;
@@ -44,17 +43,16 @@ class AdminBookingController extends Controller
         ]);
     }
 
-    public function updateStatus(UpdateBookingStatusRequest $request, Booking $booking): JsonResponse
+    public function updateStatus(UpdateBookingStatusRequest $request, Booking $booking)
     {
         $booking->update([
             'status' => $request->input('status'),
             'admin_notes' => $request->input('admin_notes'),
         ]);
 
-        return response()->json([
-            'success' => true,
-            'status' => $booking->status,
-        ]);
+        return redirect()
+            ->route('admin.bookings.show', $booking)
+            ->with('success', 'Booking status updated successfully.');
     }
 
     public function calendar(Request $request): View

@@ -61,10 +61,9 @@
               <h2 class="bf-card-title">Select Services</h2>
               <div class="bf-category-tabs" role="tablist" aria-label="Service categories">
                 <button type="button" class="bf-category-tab is-active" data-category-filter="all">All</button>
-                <button type="button" class="bf-category-tab" data-category-filter="packages">Packages</button>
-                <button type="button" class="bf-category-tab" data-category-filter="decor">Decor</button>
-                <button type="button" class="bf-category-tab" data-category-filter="entertainment">Entertainment</button>
-                <button type="button" class="bf-category-tab" data-category-filter="foodcarts">Food carts</button>
+                @foreach (($categories ?? collect($services)->pluck('category')->filter()->unique()->values()->map(fn ($category) => ['value' => $category, 'label' => ucwords(str_replace(['_', '-'], ' ', $category))])) as $category)
+                <button type="button" class="bf-category-tab" data-category-filter="{{ $category['value'] }}">{{ $category['label'] }}</button>
+                @endforeach
               </div>
             </div>
             <div id="serviceList">
@@ -73,7 +72,7 @@
                    data-id="{{ $svc['id'] }}"
                    data-category="{{ $svc['category'] ?? 'all' }}"
                    data-price="{{ $svc['price'] }}"
-                   data-price-label="{{ $svc['priceLabel'] ?? number_format($svc['price']) }}">
+                   data-price-label="{{ $svc['price'] == 0 ? 'Custom Quote' : ($svc['priceLabel'] ?? number_format($svc['price'])) }}">
 
                 <input type="checkbox"
                        class="bf-chk-native"
@@ -92,7 +91,10 @@
 
                 <div class="bf-svc-info">
                   <span class="bf-svc-name">{{ $svc['name'] }}</span>
-                  <span class="bf-svc-price">{{ $svc['priceLabel'] ?? ('₱' . number_format($svc['price'])) }}</span>
+                  {{-- Updated Logic Here --}}
+                  <span class="bf-svc-price">
+                    {{ $svc['price'] == 0 ? 'Custom Quote' : ('₱' . number_format($svc['price'])) }}
+                  </span>
                 </div>
 
                 <div class="bf-stepper" id="stepper_{{ $svc['id'] }}">
@@ -227,6 +229,7 @@
 @push('scripts')
 <script>
 const services = @json($services);
+const oldServices = @json(old('services', []));
 const selected  = {};
 const categoryButtons = Array.from(document.querySelectorAll('[data-category-filter]'));
 const serviceRows = Array.from(document.querySelectorAll('.bf-service-row'));
@@ -240,7 +243,7 @@ function setActiveCategory(category) {
 
   serviceRows.forEach(row => {
     const rowCategory = row.dataset.category || 'all';
-    const shouldShow = category === 'all' || rowCategory === category || (category === 'decor' && rowCategory === 'packages');
+    const shouldShow = category === 'all' || rowCategory === category;
     row.classList.toggle('is-hidden', !shouldShow);
   });
 }
@@ -271,11 +274,23 @@ function toggleService(id) {
 }
 
 function changeQty(id, delta) {
-  if (!selected[id]) return;
+  if (!selected[id]) {
+    if (delta <= 0) return;
+
+    const chk = document.getElementById('chk_' + id);
+    const row = document.getElementById('row_' + id);
+    chk.checked = true;
+    selected[id] = 0;
+    document.getElementById('qty_' + id).textContent = 0;
+    document.getElementById('qtyInput_' + id).value = 0;
+    row.classList.add('bf-service-row--active');
+  }
+
   selected[id] = Math.max(1, selected[id] + delta);
   document.getElementById('qty_' + id).textContent = selected[id];
   document.getElementById('qtyInput_' + id).value  = selected[id];
   renderSummary();
+  updateSubmit();
 }
 
 function renderSummary() {
@@ -302,23 +317,38 @@ function renderSummary() {
   footnote.style.display  = 'block';
 
   let subtotal = 0;
+  let hasCustomQuote = false; // Track if we have any custom quote items
   list.innerHTML = '';
+
   ids.forEach(id => {
-    const svc  = services.find(s => s.id == id);
+    const svc = services.find(s => s.id == id);
     if (!svc) return;
-    const isCustom = svc.category === 'packages';
-    const line = svc.price * selected[id];
-    if (!isCustom) {
-      subtotal += line;
+
+    // Check if the price is 0 instead of checking the category
+    const isCustom = svc.price == 0;
+    const lineTotal = svc.price * selected[id];
+
+    if (isCustom) {
+      hasCustomQuote = true;
+    } else {
+      subtotal += lineTotal;
     }
-    const li   = document.createElement('li');
+
+    const li = document.createElement('li');
     li.className = 'bf-sum-item';
     li.innerHTML =
       `<span class="bf-sum-name">${svc.emoji} ${svc.name}<em> ×${selected[id]}</em></span>` +
-      `<span class="bf-sum-price">${isCustom ? 'Custom quote' : '₱' + line.toLocaleString()}</span>`;
+      `<span class="bf-sum-price">${isCustom ? 'Custom Quote' : '₱' + lineTotal.toLocaleString()}</span>`;
     list.appendChild(li);
   });
-  totalAmt.textContent = subtotal ? '₱' + subtotal.toLocaleString() : 'Custom quote';
+
+  // Calculate Total Display
+  if (subtotal > 0) {
+    // If there is a subtotal AND a custom quote, show "₱X + Custom Quote" or just the price
+    totalAmt.textContent = '₱' + subtotal.toLocaleString() + (hasCustomQuote ? ' + Custom Quote' : '');
+  } else {
+    totalAmt.textContent = 'Custom Quote';
+  }
 }
 
 function updateSubmit() {
@@ -340,7 +370,29 @@ function syncStepperState() {
   });
 }
 
+function hydrateFromOldInput() {
+  Object.entries(oldServices || {}).forEach(([id, serviceData]) => {
+    const isSelected = !!(serviceData && serviceData.selected);
+    if (!isSelected) return;
+
+    const quantity = Math.max(1, parseInt(serviceData.quantity, 10) || 1);
+    const chk = document.getElementById('chk_' + id);
+    const qtySpan = document.getElementById('qty_' + id);
+    const qtyInput = document.getElementById('qtyInput_' + id);
+    const row = document.getElementById('row_' + id);
+
+    if (!chk || !qtySpan || !qtyInput || !row) return;
+
+    chk.checked = true;
+    selected[id] = quantity;
+    qtySpan.textContent = quantity;
+    qtyInput.value = quantity;
+    row.classList.add('bf-service-row--active');
+  });
+}
+
 setActiveCategory('all');
+hydrateFromOldInput();
 syncStepperState();
 renderSummary();
 updateSubmit();

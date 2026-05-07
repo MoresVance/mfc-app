@@ -57,16 +57,14 @@
                             <h2 class="bf-card-title">Select Services</h2>
                             <div class="bf-category-tabs" role="tablist" aria-label="Service categories">
                                 <button type="button" class="bf-category-tab is-active" data-category-filter="all">All</button>
-                                <button type="button" class="bf-category-tab" data-category-filter="balloons">Balloons</button>
-                                <button type="button" class="bf-category-tab" data-category-filter="decor">Decor</button>
-                                <button type="button" class="bf-category-tab" data-category-filter="booths">Booths</button>
-                                <button type="button" class="bf-category-tab" data-category-filter="food_carts">Food carts</button>
-                                <button type="button" class="bf-category-tab" data-category-filter="other">Other</button>
+                                @foreach (($categories ?? collect($services)->pluck('category')->filter()->unique()->values()->map(fn ($category) => ['value' => $category, 'label' => ucwords(str_replace(['_', '-'], ' ', $category))])) as $category)
+                                    <button type="button" class="bf-category-tab" data-category-filter="{{ $category['value'] }}">{{ $category['label'] }}</button>
+                                @endforeach
                             </div>
                         </div>
                         <div id="serviceList">
                             @foreach ($services as $svc)
-                            <div class="bf-service-row" id="row_{{ $svc['id'] }}" data-id="{{ $svc['id'] }}" data-category="{{ $svc['category'] ?? 'all' }}" data-price="{{ $svc['price'] }}" data-price-label="{{ $svc['priceLabel'] ?? number_format($svc['price']) }}">
+                            <div class="bf-service-row" id="row_{{ $svc['id'] }}" data-id="{{ $svc['id'] }}" data-category="{{ $svc['category'] ?? 'all' }}" data-price="{{ $svc['price'] }}" data-price-label="{{ $svc['priceLabel'] ?? ((int) $svc['price'] === 0 ? 'Custom quote' : ('₱' . number_format($svc['price']))) }}">
                                 <input type="checkbox" class="bf-chk-native" id="chk_{{ $svc['id'] }}" name="services[{{ $svc['id'] }}][selected]" value="1" onchange="toggleService({{ $svc['id'] }})">
                                 <label class="bf-chk-box" for="chk_{{ $svc['id'] }}">
                                     <svg class="bf-chk-icon" viewBox="0 0 10 8" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"><polyline points="1 4 4 7 9 1"/></svg>
@@ -74,7 +72,7 @@
                                 <span class="bf-svc-emoji">{{ $svc['emoji'] }}</span>
                                 <div class="bf-svc-info">
                                     <span class="bf-svc-name">{{ $svc['name'] }}</span>
-                                    <span class="bf-svc-price">{{ $svc['priceLabel'] ?? ('₱' . number_format($svc['price'])) }}</span>
+                                    <span class="bf-svc-price">{{ $svc['priceLabel'] ?? ((int) $svc['price'] === 0 ? 'Custom quote' : ('₱' . number_format($svc['price']))) }}</span>
                                 </div>
                                 <div class="bf-stepper" id="stepper_{{ $svc['id'] }}">
                                     <button type="button" class="bf-step-minus" onclick="changeQty({{ $svc['id'] }}, -1)">−</button>
@@ -156,6 +154,7 @@
 @push('scripts')
 <script>
 const services = @json($services);
+const oldServices = @json(old('services', []));
 const selected  = {};
 const categoryButtons = Array.from(document.querySelectorAll('[data-category-filter]'));
 const serviceRows = Array.from(document.querySelectorAll('.bf-service-row'));
@@ -198,11 +197,23 @@ function toggleService(id) {
 }
 
 function changeQty(id, delta) {
-    if (!selected[id]) return;
+    if (!selected[id]) {
+        if (delta <= 0) return;
+
+        const chk = document.getElementById('chk_' + id);
+        const row = document.getElementById('row_' + id);
+        chk.checked = true;
+        selected[id] = 0;
+        document.getElementById('qty_' + id).textContent = 0;
+        document.getElementById('qtyInput_' + id).value = 0;
+        row.classList.add('bf-service-row--active');
+    }
+
     selected[id] = Math.max(1, selected[id] + delta);
     document.getElementById('qty_' + id).textContent = selected[id];
     document.getElementById('qtyInput_' + id).value  = selected[id];
     renderSummary();
+    updateSubmit();
 }
 
 function renderSummary() {
@@ -230,17 +241,25 @@ function renderSummary() {
 
     let subtotal = 0;
     list.innerHTML = '';
+    let hasCustom = false;
     ids.forEach(id => {
         const svc  = services.find(s => s.id == id);
         if (!svc) return;
-        const line = svc.price * selected[id];
-        subtotal += line;
+        const price = Number(svc.price) || 0;
+        const line = price * selected[id];
+        if (price === 0) {
+            hasCustom = true;
+        } else {
+            subtotal += line;
+        }
         const li   = document.createElement('li');
         li.className = 'bf-sum-item';
-        li.innerHTML = `<span class="bf-sum-name">${svc.emoji} ${svc.name}<em> ×${selected[id]}</em></span><span class="bf-sum-price">₱${line.toLocaleString()}</span>`;
+        li.innerHTML = `<span class="bf-sum-name">${svc.emoji} ${svc.name}<em> ×${selected[id]}</em></span><span class="bf-sum-price">${price === 0 ? 'Custom quote' : '₱' + line.toLocaleString()}</span>`;
         list.appendChild(li);
     });
-    totalAmt.textContent = '₱' + subtotal.toLocaleString();
+    totalAmt.textContent = hasCustom
+        ? (subtotal > 0 ? '₱' + subtotal.toLocaleString() + ' + Custom quote' : 'Custom quote')
+        : '₱' + subtotal.toLocaleString();
 }
 
 function updateSubmit() {
@@ -262,7 +281,29 @@ function syncStepperState() {
     });
 }
 
+function hydrateFromOldInput() {
+    Object.entries(oldServices || {}).forEach(([id, serviceData]) => {
+        const isSelected = !!(serviceData && serviceData.selected);
+        if (!isSelected) return;
+
+        const quantity = Math.max(1, parseInt(serviceData.quantity, 10) || 1);
+        const chk = document.getElementById('chk_' + id);
+        const qtySpan = document.getElementById('qty_' + id);
+        const qtyInput = document.getElementById('qtyInput_' + id);
+        const row = document.getElementById('row_' + id);
+
+        if (!chk || !qtySpan || !qtyInput || !row) return;
+
+        chk.checked = true;
+        selected[id] = quantity;
+        qtySpan.textContent = quantity;
+        qtyInput.value = quantity;
+        row.classList.add('bf-service-row--active');
+    });
+}
+
 setActiveCategory('all');
+hydrateFromOldInput();
 syncStepperState();
 renderSummary();
 updateSubmit();

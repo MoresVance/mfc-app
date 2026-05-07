@@ -1,44 +1,53 @@
 @extends('layouts.app', ['title' => 'Booking Details'])
 
+@push('styles')
+    <link rel="stylesheet" href="/assets/css/booking-details.css">
+@endpush
+
 @section('content')
-<div class="container mx-auto px-4 py-8 max-w-4xl">
-    <div class="flex items-center justify-between mb-6">
-        <h1 class="text-3xl font-semibold">Booking Details</h1>
-        <a href="{{ route('bookings.index') }}" class="text-sm underline">Back to bookings</a>
+<div class="bd-page">
+    <div class="bd-container">
+    <div class="bd-header">
+        <h1 class="bd-title">Booking Details</h1>
+        <a href="{{ route('bookings.index') }}" class="bd-link">Back to bookings</a>
     </div>
 
-    <div class="rounded-lg border border-gray-200 p-6 space-y-3">
-        <p><strong>Status:</strong> {{ $booking->status }}</p>
-        <p><strong>Event date:</strong> {{ $booking->event_date->toFormattedDateString() }}</p>
-        <p><strong>Contact:</strong> {{ $booking->contact_name }} · {{ $booking->contact_email }} · {{ $booking->contact_phone }}</p>
-        <p><strong>Details:</strong> {{ $booking->event_details ?: 'None' }}</p>
+    <div class="bd-card bd-stack">
+        <div class="bd-row"><span class="bd-label">Status:</span> <span>{{ $booking->status }}</span></div>
+        <div class="bd-row"><span class="bd-label">Event date:</span> <span>{{ $booking->event_date->toFormattedDateString() }}</span></div>
+        <div class="bd-row"><span class="bd-label">Contact:</span> <span>{{ $booking->contact_name }} · {{ $booking->contact_email }} · {{ $booking->contact_phone }}</span></div>
+        <div class="bd-row"><span class="bd-label">Details:</span> <span>{{ $booking->event_details ?: 'None' }}</span></div>
 
         <div>
-            <h2 class="font-semibold mb-2">Services</h2>
-            <ul class="list-disc pl-5 space-y-1">
+            <h2 class="bd-section-title">Services</h2>
+            <ul class="bd-list">
                 @foreach ($booking->services as $service)
-                    <li>{{ $service->name }} x {{ $service->pivot->quantity }} (₱{{ number_format($service->pivot->unit_price) }})</li>
+                    <li>{{ $service->name }} x {{ $service->pivot->quantity }} ({{ (int) $service->pivot->unit_price === 0 ? 'Custom quote' : '₱' . number_format($service->pivot->unit_price) }})</li>
                 @endforeach
             </ul>
         </div>
 
-        <div>
-            <strong>Subtotal:</strong> ₱{{ number_format($booking->subtotal()) }}
+        <div class="bd-total">
+            Subtotal: {{ $booking->subtotal() > 0 ? '₱' . number_format($booking->subtotal()) : 'Custom quote' }}
         </div>
 
         @if ($booking->paymentProof)
-            <div>
-                <strong>Payment proof:</strong> {{ $booking->paymentProof->file_path }}
+            <div class="bd-row">
+                <span class="bd-label">Payment proof:</span>
+                <span>{{ $booking->paymentProof->file_path }}</span>
             </div>
         @endif
     </div>
 
-    <form method="POST" action="{{ route('bookings.upload-payment', $booking) }}" enctype="multipart/form-data" class="mt-6 space-y-3 rounded-lg border border-gray-200 p-6">
+    <form method="POST" action="{{ route('bookings.upload-payment', $booking) }}" enctype="multipart/form-data" class="bd-form bd-card bd-stack">
         @csrf
-        <h2 class="text-xl font-semibold">Upload payment proof</h2>
-        <input type="file" name="payment_file" class="block w-full text-sm">
-        @error('payment_file')<span class="text-sm text-red-600">{{ $message }}</span>@enderror
-        <button type="submit" class="rounded-md bg-black px-5 py-2 text-white">Upload</button>
+        <h2 class="bd-section-title">Upload payment proof</h2>
+        <div class="bd-field">
+            <input type="file" name="payment_file" class="bd-file">
+            @error('payment_file')<span class="bd-error">{{ $message }}</span>@enderror
+        </div>
+        <button type="submit" class="bd-button">Upload</button>
     </form>
+    </div>
 </div>
 @endsection

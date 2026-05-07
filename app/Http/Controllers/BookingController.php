@@ -17,26 +17,42 @@ class BookingController extends Controller
 {
     public function create(): View
     {
-        $services = Service::query()
+        $serviceModels = Service::query()
             ->where('is_active', true)
             ->orderBy('category')
             ->orderBy('name')
-            ->get()
+            ->get();
+
+        $services = $serviceModels
             ->map(function (Service $service): array {
                 return [
                     'id' => $service->id,
                     'name' => $service->name,
                     'price' => (int) $service->price,
-                    'priceLabel' => '₱' . number_format($service->price),
+                    'priceLabel' => (int) $service->price === 0
+                        ? 'Custom quote'
+                        : '₱' . number_format($service->price),
                     'emoji' => $service->emoji,
                     'category' => $service->category,
                 ];
             })
             ->values();
 
+        $categories = $serviceModels
+            ->pluck('category')
+            ->filter()
+            ->unique()
+            ->values()
+            ->map(fn (string $category): array => [
+                'value' => $category,
+                'label' => ucwords(str_replace(['_', '-'], ' ', $category)),
+            ])
+            ->all();
+
         return view('booking.create', [
             'today' => Carbon::today()->toDateString(),
             'services' => $services,
+            'categories' => $categories,
         ]);
     }
 
