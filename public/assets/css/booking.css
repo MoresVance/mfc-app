@@ -786,3 +786,34 @@
     font-size: 28px;
   }
 }
+
+/* Mobile specific tweaks for small phones */
+@media (max-width: 640px) {
+  .bf-page, .bk-page {
+    padding: 20px 14px 64px;
+  }
+
+  .bf-container, .bk-container {
+    padding: 0 6px;
+    max-width: 100%;
+  }
+
+  .bk-hero {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .bk-title { font-size: 22px; }
+
+  .bk-card { padding: 14px; border-radius: 12px; }
+
+  .bk-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  .bk-card-body { flex-direction: column; gap: 10px; }
+
+  .back-btn { padding: 8px 12px; font-size: 13px; }
+
+  .bk-primary-btn { width: 100%; padding: 12px; }
+
+  .bk-admin-note-short { font-size: 12px; padding: 6px 8px; }
+}

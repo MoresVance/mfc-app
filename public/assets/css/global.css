@@ -24,3 +24,19 @@ body {
     color: var(--text);
     line-height: 1.6;
 }
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  :root {
+    --text: #111111;
+  }
+
+  html, body {
+    font-size: 15px;
+  }
+
+  /* reduce default paddings for small screens */
+  body {
+    padding: 0;
+  }
+}

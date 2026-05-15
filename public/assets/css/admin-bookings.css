@@ -198,3 +198,11 @@
     align-items: flex-start;
   }
 }
+
+@media (max-width: 480px) {
+  .ab-container { padding: 0 8px; max-width: 100%; }
+  .ab-filter-form { flex-direction: column; }
+  .ab-input, .ab-select { flex: 1 1 100%; min-width: 0; }
+  .ab-item { padding: 12px; border-radius: 12px; }
+  .ab-status { font-size: 0.78rem; padding: 6px 8px; }
+}

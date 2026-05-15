@@ -302,6 +302,16 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 
+@media (max-width: 640px) {
+    .content-wrapper { padding: 18px 12px; }
+    .calendar-grid { grid-template-columns: repeat(7, 1fr); gap: 6px; }
+    .day-cell { width: auto; aspect-ratio: 1 / 1; padding: 8px; }
+    .day-number { font-size: 13px; }
+    .month-navigation h2 { font-size: 16px; }
+    .calendar-header { gap: 10px; }
+    .day-action { font-size: 11px; padding: 6px 8px; }
+}
+
 .day-cell:not(.empty):hover {
     box-shadow: 0 10px 24px rgba(26, 26, 26, 0.08);
     border-color: #d7d7d7;

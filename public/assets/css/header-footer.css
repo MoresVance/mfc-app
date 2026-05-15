@@ -174,3 +174,23 @@ footer {
     display: none;
   }
 }
+
+@media (max-width: 860px) {
+  .nav {
+    padding: 0 12px;
+    height: 56px;
+  }
+
+  .nav-links {
+    display: none; /* hide centered links on small screens */
+  }
+
+  .nav-brand .logo { width: 60px; height: 28px; background-size: contain; }
+
+  .nav-actions { gap: 8px; }
+}
+
+@media (max-width: 420px) {
+  .nav { padding: 0 8px; }
+  .nav-brand .logo { width: 52px; height: 26px; }
+}
