@@ -509,7 +509,7 @@
     background-color: rgba(95, 103, 114, 0.08);
 }
 
-@media (max-width: 760px) {
+@media (min-width: 641px) and (max-width: 760px) {
     .content-wrapper {
         padding: 24px 16px;
     }
