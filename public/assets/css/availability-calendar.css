@@ -298,7 +298,7 @@
     border-radius: 8px;
     background-color: #f8faf8;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 
@@ -320,14 +320,15 @@
     
     .calendar-grid { 
         display: grid;
-        grid-template-columns: repeat(7, 48px);
+        grid-template-columns: repeat(7, 45px);
         gap: 4px;
         justify-content: center;
     }
     
     .day-cell { 
-        width: 48px;
-        height: 48px;
+        width: 45px;
+        height: 45px;
+        aspect-ratio: 1/1;
         padding: 3px; 
         border-radius: 4px;
         position: relative;
@@ -341,17 +342,18 @@
     .nav-btn { padding: 4px; font-size: 10px; }
 
     .day-action { 
-        font-size: 7px; 
-        padding: 2px 3px; 
-        bottom: 2px;
-        left: 2px;
-        right: 2px;
+        font-size: 5px; 
+        padding: 0 2px; 
+        min-height: 10px;
+        bottom: 3px;
+        left: 3px;
+        right: 3px;
         white-space: nowrap;
         border-radius: 2px;
     }
     
     .calendar-alert { padding: 6px 8px; font-size: 11px; }
-    .btn { padding: 6px 10px; font-size: 11px; gap: 4px; }
+    .btn { padding: 5px 8px; font-size: 11px; gap: 4px; }
     
     .legend { flex-wrap: wrap; gap: 12px; margin-top: 12px; }
     .legend-item { font-size: 11px; }
@@ -364,20 +366,22 @@
     .calendar-card { padding: 6px; }
     
     .calendar-grid { 
-        grid-template-columns: repeat(7, 40px);
+        grid-template-columns: repeat(7, 38px);
         gap: 3px;
     }
     
     .day-cell { 
-        width: 40px;
-        height: 40px;
+        width: 38px;
+        height: 38px;
+        aspect-ratio: 1/1;
         padding: 2px;
+        overflow: hidden;
     }
     
     .day-number { font-size: 9px; }
     .day-headers { font-size: 8px; }
     .month-navigation h2 { font-size: 12px; }
-    .day-action { font-size: 6px; padding: 1px 2px; bottom: 1px; left: 1px; right: 1px; }
+    .day-action { font-size: 4px; padding: 0 2px; min-height: 9px; bottom: 2px; left: 2px; right: 2px; }
 }
 
 .day-cell:not(.empty):hover {
@@ -493,14 +497,6 @@
 
 .day-action:disabled {
     cursor: default;
-}
-
-.day-cell.booked:hover {
-    background-color: rgba(176, 58, 46, 0.40);
-}
-
-.day-cell.available:hover {
-    background-color: rgba(46, 125, 79, 0.40);
 }
 
 .day-cell.past {
