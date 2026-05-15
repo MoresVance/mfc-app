@@ -1,8 +1,8 @@
 <nav class="nav" id="mainNav">
-    <div class="nav-brand">
+    <a href="{{ route('home') }}" class="nav-brand">
         <span class="logo"></span>
         <span class="nav-brand-text">MFC Balloons & Party Needs</span>
-    </div>
+    </a>
     <ul class="nav-links">
         <li><a href="{{ route('home') }}" id="nav-home" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
         <li><a href="{{ route('home') }}#packages-section" id="nav-browse">Browse Services</a></li>
