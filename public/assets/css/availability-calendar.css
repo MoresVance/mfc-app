@@ -496,11 +496,11 @@
 }
 
 .day-cell.booked:hover {
-    background-color: rgba(176, 58, 46, 0.38);
+    background-color: rgba(176, 58, 46, 0.40);
 }
 
 .day-cell.available:hover {
-    background-color: rgba(46, 125, 79, 0.38);
+    background-color: rgba(46, 125, 79, 0.40);
 }
 
 .day-cell.past {
