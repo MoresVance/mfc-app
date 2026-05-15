@@ -187,10 +187,25 @@
   }
 }
 
-@media (max-width: 420px) {
-  .bd-container { padding: 0 8px; max-width: 100%; }
-  .bd-title { font-size: 1.4rem; }
-  .back-btn { width: 100%; justify-content: flex-start; padding: 10px 12px; }
-  .bd-card { padding: 14px; border-radius: 12px; }
-  .bd-input, .bd-select, .bd-textarea { padding: 10px 12px; }
+@media (max-width: 640px) {
+  .bd-page {
+    padding: 12px 10px 48px;
+  }
+
+  .bd-container { padding: 0; max-width: 100%; }
+  .bd-header { gap: 8px; margin-bottom: 12px; }
+  .bd-title { font-size: 1.3rem; font-weight: 600; }
+  .back-btn { width: 100%; justify-content: flex-start; padding: 8px 10px; font-size: 12px; border-radius: 6px; }
+
+  .bd-card { padding: 12px; border-radius: 10px; margin-bottom: 10px; }
+  .bd-card-title, .bd-section-title { font-size: 13px; font-weight: 700; }
+  .bd-row { font-size: 13px; gap: 4px; }
+  .bd-label { font-size: 12px; }
+  .bd-muted { font-size: 12px; }
+  .bd-list { font-size: 13px; padding-left: 1rem; gap: 6px; }
+
+  .bd-input, .bd-select, .bd-textarea, .bd-file { padding: 8px 10px; font-size: 13px; border-radius: 6px; }
+  .bd-button { padding: 10px 14px; font-size: 13px; border-radius: 6px; }
+  .bd-error { padding: 10px; font-size: 12px; }
+  .bd-admin-note { padding: 8px 10px; font-size: 12px; margin-top: 4px; }
 }

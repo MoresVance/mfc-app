@@ -303,13 +303,22 @@
 }
 
 @media (max-width: 640px) {
-    .content-wrapper { padding: 18px 12px; }
-    .calendar-grid { grid-template-columns: repeat(7, 1fr); gap: 6px; }
-    .day-cell { width: auto; aspect-ratio: 1 / 1; padding: 8px; }
-    .day-number { font-size: 13px; }
-    .month-navigation h2 { font-size: 16px; }
-    .calendar-header { gap: 10px; }
-    .day-action { font-size: 11px; padding: 6px 8px; }
+    .content-wrapper { padding: 12px 8px; }
+    .calendar-header { gap: 8px; margin-bottom: 12px; }
+    .calendar-header h1 { font-size: 20px; }
+    .admin-controls-toggle { font-size: 12px; }
+
+    .calendar-grid { grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .day-cell { width: auto; aspect-ratio: 1 / 1; padding: 6px; border-radius: 6px; }
+    .day-number { font-size: 12px; }
+    .day-headers { font-size: 10px; }
+    .month-navigation { margin-bottom: 10px; }
+    .month-navigation h2 { font-size: 14px; }
+    .nav-btn { padding: 6px; font-size: 11px; }
+
+    .day-action { font-size: 9px; padding: 4px 6px; }
+    .calendar-alert { padding: 8px 10px; font-size: 12px; }
+    .btn { padding: 6px 12px; font-size: 12px; gap: 4px; }
 }
 
 .day-cell:not(.empty):hover {

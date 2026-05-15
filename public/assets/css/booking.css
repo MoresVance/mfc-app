@@ -790,30 +790,54 @@
 /* Mobile specific tweaks for small phones */
 @media (max-width: 640px) {
   .bf-page, .bk-page {
-    padding: 20px 14px 64px;
+    padding: 12px 10px 48px;
   }
 
   .bf-container, .bk-container {
-    padding: 0 6px;
+    padding: 0;
     max-width: 100%;
   }
 
   .bk-hero {
-    padding: 16px;
-    gap: 12px;
+    padding: 12px;
+    gap: 8px;
+    margin-bottom: 12px;
+    border-radius: 12px;
   }
 
-  .bk-title { font-size: 22px; }
+  .bk-kicker { font-size: 10px; margin-bottom: 4px; }
+  .bk-title { font-size: 18px; margin: 0 0 4px; }
+  .bk-subtitle { font-size: 12px; }
 
-  .bk-card { padding: 14px; border-radius: 12px; }
+  .bf-title { font-size: 22px; }
+  .bf-card, .bk-card { padding: 12px; border-radius: 10px; margin-bottom: 8px; }
+  .bf-card-title { font-size: 14px; margin-bottom: 10px; }
 
-  .bk-grid { grid-template-columns: 1fr; gap: 12px; }
+  .bk-grid { grid-template-columns: 1fr; gap: 8px; }
+  .bk-card-body { flex-direction: column; gap: 8px; font-size: 12px; }
 
-  .bk-card-body { flex-direction: column; gap: 10px; }
+  .back-btn { padding: 6px 10px; font-size: 12px; }
+  .bk-primary-btn { width: 100%; padding: 10px; font-size: 13px; }
+  .bk-admin-note-short { font-size: 11px; padding: 4px 6px; }
 
-  .back-btn { padding: 8px 12px; font-size: 13px; }
+  .bf-label, .bf-label-sm { font-size: 12px; margin-bottom: 6px; }
+  .bf-input, .bf-textarea, .bf-date-input { font-size: 13px; padding: 8px 10px; }
+  .bf-hint { font-size: 11px; margin-top: 4px; }
+  .bf-warning { padding: 8px 10px; font-size: 11px; }
 
-  .bk-primary-btn { width: 100%; padding: 12px; }
+  .bf-svc-emoji { font-size: 22px; width: 28px; }
+  .bf-svc-name { font-size: 13px; }
+  .bf-svc-price { font-size: 12px; }
+  .bf-service-row { padding: 10px 0; gap: 8px; }
 
-  .bk-admin-note-short { font-size: 12px; padding: 6px 8px; }
+  .bf-stepper { gap: 4px; }
+  .bf-step-minus, .bf-step-plus { width: 24px; height: 24px; font-size: 14px; }
+  .bf-step-val { font-size: 12px; min-width: 18px; }
+
+  .bf-summary { padding: 12px; }
+  .bf-summary-title { font-size: 14px; margin-bottom: 10px; }
+  .bf-sum-item { font-size: 12px; gap: 6px; }
+  .bf-summary-total { font-size: 13px; }
+  .bf-submit-btn { padding: 10px; font-size: 13px; }
+  .bf-submit-note { font-size: 11px; }
 }

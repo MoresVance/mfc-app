@@ -199,10 +199,28 @@
   }
 }
 
-@media (max-width: 480px) {
-  .ab-container { padding: 0 8px; max-width: 100%; }
-  .ab-filter-form { flex-direction: column; }
-  .ab-input, .ab-select { flex: 1 1 100%; min-width: 0; }
-  .ab-item { padding: 12px; border-radius: 12px; }
-  .ab-status { font-size: 0.78rem; padding: 6px 8px; }
+@media (max-width: 640px) {
+  .ab-page {
+    padding: 12px 10px 48px;
+  }
+
+  .ab-container { padding: 0; max-width: 100%; }
+  .ab-header { gap: 10px; margin-bottom: 16px; }
+  .ab-title { font-size: 1.3rem; }
+
+  .ab-filter-card { padding: 12px; margin-bottom: 12px; }
+  .ab-filter-form { gap: 8px; flex-direction: column; }
+  .ab-input, .ab-select { flex: 1 1 100%; min-width: 0; padding: 8px 10px; font-size: 13px; }
+  .ab-button { padding: 8px 12px; font-size: 12px; }
+
+  .ab-list { gap: 10px; }
+  .ab-item { padding: 10px; border-radius: 10px; }
+  .ab-item-head { gap: 10px; }
+  .ab-name { font-size: 0.95rem; font-weight: 700; }
+  .ab-meta { font-size: 0.85rem; }
+  .ab-status { font-size: 0.75rem; padding: 4px 8px; }
+
+  .ab-section { padding: 12px; }
+  .ab-section-title { font-size: 13px; margin-bottom: 8px; }
+  .ab-group { gap: 10px; }
 }
