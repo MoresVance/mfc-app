@@ -306,7 +306,6 @@
     .content-wrapper { 
         padding: 12px 8px; 
         max-width: 100%; 
-        overflow-x: hidden;
     }
     
     .calendar-header { gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
@@ -314,25 +313,25 @@
     .admin-controls-toggle { font-size: 11px; }
 
     .calendar-card { 
-        padding: 10px; 
-        width: 100%; 
-        max-width: 100vw;
+        padding: 8px; 
+        width: 100%;
+        margin: 0 auto;
     }
     
     .calendar-grid { 
         display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 3px;
-        width: 100%;
+        grid-template-columns: repeat(7, 48px);
+        gap: 4px;
+        justify-content: center;
     }
     
     .day-cell { 
-        width: 100%; 
-        height: auto;
-        aspect-ratio: 1 / 1;
-        padding: 4px; 
+        width: 48px;
+        height: 48px;
+        padding: 3px; 
         border-radius: 4px;
         position: relative;
+        overflow: hidden;
     }
     
     .day-number { font-size: 10px; font-weight: 600; }
@@ -342,13 +341,13 @@
     .nav-btn { padding: 4px; font-size: 10px; }
 
     .day-action { 
-        font-size: 8px; 
+        font-size: 7px; 
         padding: 2px 3px; 
         bottom: 2px;
         left: 2px;
         right: 2px;
         white-space: nowrap;
-        border-radius: 3px;
+        border-radius: 2px;
     }
     
     .calendar-alert { padding: 6px 8px; font-size: 11px; }
@@ -362,20 +361,21 @@
     .content-wrapper { padding: 8px 6px; }
     .calendar-header h1 { font-size: 16px; }
     
-    .calendar-card { padding: 8px; }
+    .calendar-card { padding: 6px; }
     
     .calendar-grid { 
-        grid-template-columns: repeat(7, 1fr);
-        gap: 2px;
+        grid-template-columns: repeat(7, 40px);
+        gap: 3px;
     }
     
     .day-cell { 
+        width: 40px;
+        height: 40px;
         padding: 2px;
-        aspect-ratio: 1 / 1;
     }
     
-    .day-number { font-size: 8px; }
-    .day-headers { font-size: 7px; }
+    .day-number { font-size: 9px; }
+    .day-headers { font-size: 8px; }
     .month-navigation h2 { font-size: 12px; }
     .day-action { font-size: 6px; padding: 1px 2px; bottom: 1px; left: 1px; right: 1px; }
 }
@@ -391,11 +391,11 @@
 }
 
 .day-cell.available {
-    background-color: rgba(46, 125, 79, 0.08);
+    background-color: rgba(46, 125, 79, 0.28);
 }
 
 .day-cell.booked {
-    background-color: rgba(176, 58, 46, 0.08);
+    background-color: rgba(176, 58, 46, 0.28);
 }
 
 .day-cell.today {
@@ -496,11 +496,11 @@
 }
 
 .day-cell.booked:hover {
-    background-color: rgba(176, 58, 46, 0.12);
+    background-color: rgba(176, 58, 46, 0.38);
 }
 
 .day-cell.available:hover {
-    background-color: rgba(46, 125, 79, 0.12);
+    background-color: rgba(46, 125, 79, 0.38);
 }
 
 .day-cell.past {
