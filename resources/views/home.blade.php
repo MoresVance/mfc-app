@@ -12,7 +12,7 @@
                 <h1 class="hero-title">MFC Balloons &amp; Party Needs</h1>
                 <p class="hero-sub">Affordable balloon decors, food carts &amp; party entertainment.</p>
                 <div class="hero-cta">
-                    <a href="{{ route('booking') }}" class="btn btn-primary">Start booking</a>
+                    <a href="{{ route('booking') }}" class="btn btn-primary" id="start-booking">Start booking</a>
                     <button class="btn btn-outline-white" onClick="window.location.href='{{ route('availability') }}'">View availability</button>
                 </div>
             </div>

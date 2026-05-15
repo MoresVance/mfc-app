@@ -265,7 +265,7 @@
   .value-section h2 { font-size: 1.8rem; margin-bottom: 16px; }
   .value-section p { font-size: 0.95rem; margin-bottom: 20px; }
   .btn { padding: 10px 20px; font-size: 13px; }
-  .btn-outline-white { margin-left: 6px; }
+  #start-booking, .btn-outline-white { margin-left: 6px; }
   .categories { padding: 30px 5%; }
   .cat-inner { gap: 20px; }
   .cat-item { min-width: 80px; }
@@ -292,7 +292,7 @@
   .btn-primary { font-size: 0.8rem; }
   .btn-outline { padding: 8px 14px; border-width: 1.5px; }
   .btn-block { margin-top: 10px; }
-  .btn-outline-white { margin-left: 0; margin-top: 8px; display: block; width: 100%; }
+  #start-booking, .btn-outline-white { margin-left: 0; margin-top: 8px; display: block; width: 100%; }
   .categories { padding: 20px 8px; }
   .cat-inner { gap: 12px; }
   .cat-item { min-width: 70px; }
