@@ -28,7 +28,6 @@ Route::middleware(['auth', 'admin'])
 	->name('admin.')
 	->group(function (): void {
 		Route::get('/bookings', [AdminBookingController::class, 'index'])->name('bookings.index');
-		Route::get('/bookings/calendar', [AdminBookingController::class, 'calendar'])->name('bookings.calendar');
 		Route::get('/bookings/{booking}', [AdminBookingController::class, 'show'])->name('bookings.show');
 		Route::patch('/bookings/{booking}/status', [AdminBookingController::class, 'updateStatus'])->name('bookings.update-status');
 		Route::patch('/availability/{date}/status', [AvailabilityController::class, 'setDateStatus'])

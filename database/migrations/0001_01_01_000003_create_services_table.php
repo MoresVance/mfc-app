@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('emoji')->nullable();
-            $table->unsignedBigInteger('price');
+            $table->bigInteger('price');
             $table->enum('category', ['balloons', 'food_carts', 'entertainment', 'booths', 'decor', 'other']);
             $table->boolean('is_active')->default(true);
             $table->timestamps();

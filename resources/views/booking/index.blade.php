@@ -41,7 +41,7 @@
                         </div>
                         <div class="bk-card-body">
                             <span>{{ $booking->services->count() }} service{{ $booking->services->count() === 1 ? '' : 's' }}</span>
-                            <strong>₱{{ number_format($booking->subtotal()) }}</strong>
+                            <strong>{{ $booking->subtotalDisplay() }}</strong>
                         </div>
                     </a>
                 @endforeach

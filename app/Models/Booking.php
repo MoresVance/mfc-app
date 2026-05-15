@@ -60,4 +60,27 @@ class Booking extends Model
             return ((int) $service->pivot->unit_price) * ((int) $service->pivot->quantity);
         });
     }
+
+    /**
+     * Human-friendly subtotal display.
+     * If any attached service has a unit_price of 0 it is treated as a "Custom quote".
+     * Returns strings like "Custom quote", "₱3,500", or "₱3,500 + Custom quote".
+     */
+    public function subtotalDisplay(): string
+    {
+        $subtotal = $this->subtotal();
+        $hasCustom = $this->services->contains(function (Service $service) {
+            return ((int) $service->pivot->unit_price) === 0;
+        });
+
+        if ($hasCustom) {
+            if ($subtotal > 0) {
+                return '₱' . number_format($subtotal) . ' + Custom quote';
+            }
+
+            return 'Custom quote';
+        }
+
+        return '₱' . number_format($subtotal);
+    }
 }

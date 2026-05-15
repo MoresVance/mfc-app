@@ -38,9 +38,6 @@
         @endforeach
     </div>
 
-    <div class="ab-pagination">
-        {{ $bookings->links() }}
-    </div>
 </div>
 </div>
 @endsection

@@ -55,24 +55,5 @@ class AdminBookingController extends Controller
             ->with('success', 'Booking status updated successfully.');
     }
 
-    public function calendar(Request $request): View
-    {
-        try {
-            $month = Carbon::createFromFormat('Y-m', (string) $request->query('month', now()->format('Y-m')));
-        } catch (\Throwable) {
-            $month = now();
-        }
 
-        $bookings = Booking::query()
-            ->whereYear('event_date', $month->year)
-            ->whereMonth('event_date', $month->month)
-            ->orderBy('event_date')
-            ->get()
-            ->groupBy(fn (Booking $booking) => $booking->event_date->toDateString());
-
-        return view('admin.bookings.calendar', [
-            'month' => $month,
-            'bookingsByDate' => $bookings,
-        ]);
-    }
 }

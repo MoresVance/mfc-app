@@ -35,7 +35,7 @@
         </div>
 
         <div class="bd-total">
-            Subtotal: {{ $booking->subtotal() > 0 ? '₱' . number_format($booking->subtotal()) : 'Custom quote' }}
+            Subtotal: {{ $booking->subtotalDisplay() }}
         </div>
 
         @if ($booking->admin_notes)

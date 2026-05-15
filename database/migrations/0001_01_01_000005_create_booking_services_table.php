@@ -12,8 +12,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('booking_id')->constrained()->cascadeOnDelete();
             $table->foreignId('service_id')->constrained()->cascadeOnDelete();
-            $table->unsignedInteger('quantity')->default(1);
-            $table->unsignedBigInteger('unit_price');
+            $table->integer('quantity')->default(1);
+            $table->bigInteger('unit_price');
             $table->timestamps();
         });
     }
